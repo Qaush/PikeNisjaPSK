@@ -43,7 +43,7 @@ export function buildReportEmail(opts: {
     <p style="margin:24px 0">
       <a href="${reportUrl}" style="display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600">Hap raportin e plotë</a>
     </p>
-    <p style="margin:0;font-size:13px;color:#52606d;line-height:1.5">Nga faqja e raportit mund t'i shkruani drejtpërdrejt psikologut nëse doni të bisedoni për rezultatin.</p>
+    <p style="margin:0;font-size:13px;color:#52606d;line-height:1.5">Nga faqja e raportit mund të kërkoni një seancë me psikologun, nëse doni ta diskutoni rezultatin me një profesionist.</p>
   </div>
   <p style="margin:20px 8px 0;font-size:12px;color:#7b8794;line-height:1.5">
     Ky raport është një vetëvlerësim orientues bazuar në instrumentin ${test.code} dhe <strong>nuk është diagnozë</strong>. Vetëm një profesionist i shëndetit mendor mund të bëjë vlerësim klinik. Të dhënat tuaja ruhen të enkriptuara dhe fshihen automatikisht pas ${config.retentionDays} ditësh.
@@ -75,39 +75,38 @@ export function buildReportEmail(opts: {
   return { subject, html, text };
 }
 
-/** Emaili që i shkon psikologut kur klienti kërkon kontakt. */
-export function buildContactEmail(opts: {
+/** Emaili që i shkon psikologut kur klienti kërkon një seancë. */
+export function buildSessionRequestEmail(opts: {
   test: TestDefinition;
   result: TestResult;
   clientEmail: string;
-  message: string;
   reportUrl: string;
 }) {
-  const { test, result, clientEmail, message, reportUrl } = opts;
-  const subject = `[${config.brandName}] Kërkesë kontakti – ${test.code}, ${result.score}/${result.maxScore} (${result.band.level})`;
+  const { test, result, clientEmail, reportUrl } = opts;
+  const subject = `[${config.brandName}] Kërkesë për seancë – ${test.code}, ${result.score}/${result.maxScore} (${result.band.level})`;
   const esc = (s: string) =>
     s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const flag = result.safetyFlag
+    ? ` <strong style="color:#b91c1c">(pyetje sinjalizuese aktive)</strong>`
+    : "";
 
   const html = `<!doctype html><html lang="sq"><body style="font-family:Arial,Helvetica,sans-serif;color:#1f2933;line-height:1.55">
-  <h2 style="margin:0 0 12px">Kërkesë kontakti nga një klient</h2>
+  <h2 style="margin:0 0 12px">Një klient kërkon seancë</h2>
+  <p>Klienti plotësoi një test në ${config.brandName} dhe kërkoi të caktojë një seancë me ju.</p>
   <p><strong>Testi:</strong> ${test.title}<br>
-     <strong>Rezultati:</strong> ${result.score} / ${result.maxScore} – ${result.band.level}${result.safetyFlag ? " <strong style='color:#b91c1c'>(pyetje sinjalizuese aktive)</strong>" : ""}<br>
+     <strong>Rezultati:</strong> ${result.score} / ${result.maxScore} – ${result.band.level}${flag}<br>
      <strong>Emaili i klientit:</strong> <a href="mailto:${esc(clientEmail)}">${esc(clientEmail)}</a></p>
-  <p><strong>Mesazhi:</strong></p>
-  <blockquote style="margin:0 0 16px;padding:12px 16px;background:#f4f6f8;border-left:3px solid #0f766e;white-space:pre-wrap">${esc(message)}</blockquote>
-  <p style="font-size:13px;color:#52606d">Raporti i klientit: <a href="${reportUrl}">${reportUrl}</a><br>Përgjigjuni direkt këtij emaili për t'i shkruar klientit.</p>
+  <p style="font-size:13px;color:#52606d">Raporti i plotë: <a href="${reportUrl}">${reportUrl}</a><br>Përgjigjuni direkt këtij emaili për ta kontaktuar klientin dhe caktuar orarin.</p>
   </body></html>`;
 
-  const text = `Kërkesë kontakti nga një klient
+  const text = `Një klient kërkon seancë
 
 Testi: ${test.title}
 Rezultati: ${result.score} / ${result.maxScore} – ${result.band.level}${result.safetyFlag ? " (pyetje sinjalizuese aktive)" : ""}
 Emaili i klientit: ${clientEmail}
 
-Mesazhi:
-${message}
-
-Raporti: ${reportUrl}`;
+Raporti i plotë: ${reportUrl}
+Përgjigjuni këtij emaili për ta kontaktuar klientin.`;
 
   return { subject, html, text };
 }

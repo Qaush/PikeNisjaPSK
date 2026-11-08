@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import ContactForm from "@/components/ContactForm";
+import SessionRequest from "@/components/SessionRequest";
 import { config } from "@/lib/config";
 import { openReport } from "@/lib/orders";
 import { helplines, safetyMessage } from "@/lib/safety";
@@ -104,7 +104,7 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         <p className="leading-relaxed">{result.band.recommendation}</p>
       </section>
 
-      <ContactForm token={token} />
+      <SessionRequest token={token} alreadyRequested={Boolean(order!.sessionRequestedAt)} />
 
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-semibold">Përgjigjet tuaja</h2>

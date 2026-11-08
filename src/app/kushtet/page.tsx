@@ -32,10 +32,11 @@ export default function TermsPage() {
       <h2 className="text-lg font-semibold">4. Mosha</h2>
       <p>Shërbimi është për persona mbi 18 vjeç. Për të mitur, kërkohet pëlqimi i prindit ose kujdestarit.</p>
 
-      <h2 className="text-lg font-semibold">5. Kontakti me psikologun</h2>
+      <h2 className="text-lg font-semibold">5. Kërkesa për seancë</h2>
       <p>
-        Mundësia për t&apos;i shkruar psikologut është një ofertë për komunikim fillestar dhe nuk krijon
-        automatikisht marrëdhënie terapeutike. Psikologu do t&apos;ju informojë për hapat e mëtejshëm.
+        Kërkesa për seancë është një shprehje interesi dhe nuk krijon automatikisht marrëdhënie
+        terapeutike. Psikologu ju kontakton për orarin, kushtet dhe çmimin e seancës, që janë të ndara
+        nga çmimi i raportit.
       </p>
 
       <h2 className="text-lg font-semibold">6. Pronësia intelektuale</h2>

@@ -11,7 +11,7 @@ export default function PrivacyPage() {
       <h2 className="text-lg font-semibold">Çfarë të dhënash mbledhim</h2>
       <ul className="list-disc space-y-1 pl-5">
         <li><strong>Përgjigjet e testit</strong>: numrat 0–3 për çdo pyetje, pa emrin tuaj.</li>
-        <li><strong>Emaili juaj</strong>: vetëm për t&apos;ju dërguar raportin dhe, nëse e kërkoni ju, për të marrë përgjigje nga psikologu.</li>
+        <li><strong>Emaili juaj</strong>: vetëm për t&apos;ju dërguar raportin dhe, nëse e kërkoni ju, që psikologu t&apos;ju kontaktojë për një seancë.</li>
         <li><strong>Të dhënat e pagesës</strong>: përpunohen tërësisht nga ofruesi i pagesës. {config.brandName} nuk e sheh dhe nuk e ruan kurrë numrin e kartës suaj.</li>
       </ul>
       <p>Nuk kërkojmë emër, numër telefoni, datëlindje apo llogari përdoruesi.</p>
@@ -31,10 +31,10 @@ export default function PrivacyPage() {
         duke na shkruar; do t&apos;i fshijmë brenda 72 orëve.
       </p>
 
-      <h2 className="text-lg font-semibold">Kontakti me psikologun</h2>
+      <h2 className="text-lg font-semibold">Kërkesa për seancë</h2>
       <p>
-        Nëse zgjidhni të kontaktoni psikologun nga raporti, mesazhi juaj, emaili juaj dhe rezultati i testit i
-        dërgohen psikologut, që të mund t&apos;ju përgjigjet. Ky komunikim është konfidencial.
+        Nëse kërkoni një seancë nga raporti, emaili juaj dhe rezultati i testit i dërgohen psikologut, që
+        t&apos;ju kontaktojë për të caktuar orarin. Asgjë tjetër nuk i dërgohet. Ky komunikim është konfidencial.
       </p>
 
       <h2 className="text-lg font-semibold">Kontakt</h2>

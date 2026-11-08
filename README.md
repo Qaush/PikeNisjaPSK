@@ -2,7 +2,7 @@
 
 Web-aplikacion (desktop + telefon) ku një person plotëson një test të shkurtër psikologjik
 (GAD-7 për ankthin, PHQ-9 për depresionin), paguan 2 € dhe merr raportin në email. Nga raporti
-mund t'i shkruajë drejtpërdrejt psikologut.
+mund të kërkojë me një klikim një seancë me psikologun.
 
 ## Rrjedha
 
@@ -11,7 +11,7 @@ mund t'i shkruajë drejtpërdrejt psikologut.
 3. `POST /api/checkout` – ruan porosinë (email dhe përgjigje **të enkriptuara**) dhe krijon pagesën
 4. Pagesa te ofruesi (në zhvillim: faqja e simuluar `/pay/mock/[orderId]`)
 5. Pas pagesës: `completePayment()` → gjeneron token sekret, dërgon emailin, ridrejton te `/report/[token]`
-6. `/report/[token]` – raporti i plotë + formulari "Kontakto psikologun" (`POST /api/contact`)
+6. `/report/[token]` – raporti i plotë + butoni "Kërko një seancë" (`POST /api/session-request`, një herë për raport)
 
 ## Nisja lokale
 
@@ -25,6 +25,23 @@ Hapni http://localhost:3000. Me `PAYMENT_PROVIDER=mock` dhe `EMAIL_PROVIDER=mock
 
 - pagesa simulohet me një klikim;
 - emailet nuk dërgohen, por ruhen si HTML te `data/outbox/` që t'i shihni.
+
+### Dërgim real i emaileve (SMTP)
+
+Në `.env.local` vendosni `EMAIL_PROVIDER=smtp` dhe të dhënat e serverit SMTP. Shembull me Gmail:
+
+```
+EMAIL_PROVIDER=smtp
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=adresa.juaj@gmail.com
+SMTP_PASS=xxxx xxxx xxxx xxxx    # "App password", jo fjalëkalimi i zakonshëm
+FROM_EMAIL="PikëNisja <adresa.juaj@gmail.com>"
+PSYCHOLOGIST_EMAIL=psikologu@...
+```
+
+App password-in e krijoni te Google Account → Security → 2-Step Verification → App passwords.
+Rinisni `npm run dev` pas çdo ndryshimi në `.env.local`.
 
 ## Struktura
 
@@ -43,7 +60,7 @@ Hapni http://localhost:3000. Me `PAYMENT_PROVIDER=mock` dhe `EMAIL_PROVIDER=mock
 ## Para publikimit (TODO)
 
 - [ ] Ofrues pagese real: Paddle ose Lemon Squeezy (pranojnë tregtarë nga Kosova, merren me TVSH-në e BE-së). Zbatohet te `src/lib/payments/` dhe `src/app/api/payments/webhook/route.ts`.
-- [ ] Ofrues emaili real: Resend / Postmark, te `src/lib/email/`.
+- [ ] Email nga domeni juaj (SMTP i hostingut, ose Resend/Postmark) në vend të Gmail-it, që emailet të mos bien në spam.
 - [ ] Bazë të dhënash (Postgres ose SQLite) në vend të `data/db.json`.
 - [ ] Rishikim i përkthimeve shqip të GAD-7 / PHQ-9 nga psikolog klinik.
 - [ ] Verifikim i numrave të urgjencës te `src/lib/safety.ts`.
@@ -55,4 +72,4 @@ Hapni http://localhost:3000. Me `PAYMENT_PROVIDER=mock` dhe `EMAIL_PROVIDER=mock
 
 Nuk kërkohet emër apo llogari. Emaili dhe përgjigjet ruhen vetëm të enkriptuara dhe fshihen
 automatikisht pas `REPORT_RETENTION_DAYS` ditësh. Të dhënat e kartës i trajton vetëm ofruesi i
-pagesës. Adresa e psikologut nuk i shfaqet kurrë klientit; mesazhet kalojnë përmes serverit.
+pagesës. Adresa e psikologut nuk i shfaqet kurrë klientit; kërkesa për seancë kalon përmes serverit.

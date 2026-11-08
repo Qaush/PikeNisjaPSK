@@ -32,6 +32,8 @@ export type Order = {
   createdAt: string;
   paidAt?: string;
   reportSentAt?: string;
+  /** Kur klienti kërkoi seancë me psikologun (vetëm një herë për raport). */
+  sessionRequestedAt?: string;
 };
 
 type Db = { orders: Order[] };

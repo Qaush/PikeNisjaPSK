@@ -20,7 +20,7 @@ export default function Home() {
         <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           <li>✓ Pa regjistrim</li>
           <li>✓ Të dhëna të enkriptuara</li>
-          <li>✓ Mundësi kontakti me psikolog</li>
+          <li>✓ Mundësi për seancë me psikolog</li>
         </ul>
       </section>
 
@@ -56,7 +56,7 @@ export default function Home() {
         {[
           ["1", "Përgjigjuni", "Pyetje të shkurtra për dy javët e fundit. Pa emër, pa llogari."],
           ["2", "Merrni raportin", `Pas pagesës prej ${formatPrice()}, raporti ju vjen menjëherë në email.`],
-          ["3", "Flisni me dikë", "Nëse doni, i shkruani psikologut direkt nga raporti."],
+          ["3", "Kërkoni seancë", "Nëse doni, me një klikim nga raporti kërkoni një seancë me psikologun."],
         ].map(([n, title, body]) => (
           <div key={n} className="flex gap-3">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white">
