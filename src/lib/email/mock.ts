@@ -10,12 +10,18 @@ import type { EmailMessage, EmailProvider } from "./types";
 export const mockEmailProvider: EmailProvider = {
   name: "mock",
   async send(message: EmailMessage) {
-    const dir = path.join(process.cwd(), config.dataDir, "outbox");
-    await mkdir(dir, { recursive: true });
     const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const header = `<!-- To: ${message.to}\n     Reply-To: ${message.replyTo ?? "-"}\n     Subject: ${message.subject} -->\n`;
-    await writeFile(path.join(dir, `${id}.html`), header + message.html, "utf8");
-    console.log(`[email:mock] → ${message.to} | ${message.subject} | ruajtur te data/outbox/${id}.html`);
+    try {
+      const dir = path.join(process.cwd(), config.dataDir, "outbox");
+      await mkdir(dir, { recursive: true });
+      const header = `<!-- To: ${message.to}\n     Reply-To: ${message.replyTo ?? "-"}\n     Subject: ${message.subject} -->\n`;
+      await writeFile(path.join(dir, `${id}.html`), header + message.html, "utf8");
+      console.log(`[email:mock] → ${message.to} | ${message.subject} | ruajtur te data/outbox/${id}.html`);
+    } catch {
+      // Në hosting serverless (Vercel) disku është vetëm për lexim: mjafton log-u.
+      console.log(`[email:mock] → ${message.to} | ${message.subject} | (nuk u ruajt; disk vetëm për lexim)`);
+      console.log(message.text);
+    }
     return { id };
   },
 };
