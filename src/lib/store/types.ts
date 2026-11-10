@@ -1,5 +1,9 @@
-export type OrderStatus = "pending" | "paid" | "cancelled";
+export type OrderStatus = "pending" | "cancelled";
 
+/**
+ * Porosi në pritje të pagesës. Pas pagesës fshihet (shih lib/orders.ts): raporti jeton
+ * vetëm te linku i enkriptuar, serveri nuk mban asgjë.
+ */
 export type Order = {
   id: string;
   testSlug: string;
@@ -11,26 +15,19 @@ export type Order = {
   emailEnc: string;
   /** Përgjigjet e testit, të enkriptuara. */
   answersEnc: string;
-  /** Token sekret për të hapur raportin; caktohet vetëm pas pagesës. */
-  reportToken?: string;
   /** ID e transaksionit te ofruesi i pagesës, nëse ka. */
   providerRef?: string;
   createdAt: string;
-  paidAt?: string;
-  reportSentAt?: string;
-  /** Kur klienti kërkoi seancë me psikologun (vetëm një herë për raport). */
-  sessionRequestedAt?: string;
 };
 
 /**
  * Ndërfaqja e ruajtjes. Zbatimet: skedar JSON (zhvillim lokal) dhe Upstash Redis (prodhim).
- * Çdo zbatim duhet t'i fshijë porositë pas REPORT_RETENTION_DAYS ditësh.
+ * Çdo zbatim duhet t'i fshijë vetë porositë e papaguara pas PENDING_ORDER_HOURS orësh.
  */
 export interface OrderStore {
   readonly name: string;
   createOrder(order: Order): Promise<Order>;
   getOrder(id: string): Promise<Order | undefined>;
-  /** Kthen vetëm porosi të paguara. */
-  getOrderByReportToken(token: string): Promise<Order | undefined>;
   updateOrder(id: string, patch: Partial<Order>): Promise<Order | undefined>;
+  deleteOrder(id: string): Promise<void>;
 }

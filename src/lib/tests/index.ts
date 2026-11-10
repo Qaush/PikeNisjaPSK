@@ -1,19 +1,35 @@
+import { brs } from "./brs";
+import { dass21 } from "./dass21";
 import { gad7 } from "./gad7";
 import { phq9 } from "./phq9";
-import type { TestDefinition, TestResult } from "./types";
+import type { Question, SeverityBand, TestDefinition, TestResult } from "./types";
 
-export type { TestDefinition, TestResult, Question, SeverityBand, AnswerOption } from "./types";
+export type {
+  TestDefinition,
+  TestResult,
+  SubscaleResult,
+  Subscale,
+  Question,
+  SeverityBand,
+  AnswerOption,
+} from "./types";
 
-export const TESTS: TestDefinition[] = [gad7, phq9];
+export const TESTS: TestDefinition[] = [gad7, phq9, dass21, brs];
 
 export function getTest(slug: string): TestDefinition | undefined {
   return TESTS.find((t) => t.slug === slug);
 }
 
-/** Pikët maksimale të mundshme për një test. */
-export function maxScore(test: TestDefinition): number {
-  const maxOption = Math.max(...test.options.map((o) => o.value));
-  return maxOption * test.questions.length;
+function optionRange(test: TestDefinition): { min: number; max: number } {
+  const values = test.options.map((o) => o.value);
+  return { min: Math.min(...values), max: Math.max(...values) };
+}
+
+/** Pikët maksimale të mundshme për një test (ose për një pjesë të pyetjeve të tij). */
+export function maxScore(test: TestDefinition, questionCount = test.questions.length): number {
+  const { max } = optionRange(test);
+  if (test.scoring === "mean") return max;
+  return max * questionCount * (test.multiplier ?? 1);
 }
 
 /**
@@ -34,20 +50,73 @@ export function validateAnswers(
   return null;
 }
 
+const TONE_ORDER: SeverityBand["tone"][] = ["ok", "mild", "moderate", "high", "severe"];
+
+function pickBand(bands: SeverityBand[], score: number): SeverityBand {
+  return bands.find((b) => score >= b.min && score <= b.max) ?? bands[bands.length - 1];
+}
+
 /** Llogarit rezultatin e një testi nga përgjigjet. Supozon përgjigje të validuara. */
 export function scoreTest(
   test: TestDefinition,
   answers: Record<string, number>,
 ): TestResult {
-  let score = 0;
+  const range = optionRange(test);
   let safetyFlag = false;
+
+  const points = (q: Question): number => {
+    const v = answers[q.id] ?? range.min;
+    return q.reverse ? range.min + range.max - v : v;
+  };
+  const scoreOf = (questions: Question[]): number => {
+    const sum = questions.reduce((acc, q) => acc + points(q), 0);
+    if (test.scoring === "mean") {
+      return questions.length ? Math.round((sum / questions.length) * 100) / 100 : 0;
+    }
+    return sum * (test.multiplier ?? 1);
+  };
+
   for (const q of test.questions) {
-    const v = answers[q.id] ?? 0;
-    score += v;
-    if (q.safetyFlag && v > 0) safetyFlag = true;
+    if (q.safetyFlag && (answers[q.id] ?? 0) > 0) safetyFlag = true;
   }
-  const band =
-    test.bands.find((b) => score >= b.min && score <= b.max) ??
-    test.bands[test.bands.length - 1];
-  return { score, maxScore: maxScore(test), band, safetyFlag };
+
+  const score = scoreOf(test.questions);
+  const minScore = test.scoring === "mean" ? range.min : 0;
+
+  if (test.subscales?.length) {
+    const subscales = test.subscales.map((s) => {
+      const questions = test.questions.filter((q) => s.questionIds.includes(q.id));
+      const subScore = scoreOf(questions);
+      return {
+        id: s.id,
+        label: s.label,
+        score: subScore,
+        maxScore: maxScore(test, questions.length),
+        band: pickBand(s.bands, subScore),
+        bands: s.bands,
+      };
+    });
+    // Niveli i përgjithshëm = nënshkalla më e rëndë (e para, kur janë baras).
+    const worst = subscales.reduce((a, b) =>
+      TONE_ORDER.indexOf(b.band.tone) > TONE_ORDER.indexOf(a.band.tone) ? b : a,
+    );
+    return { score, maxScore: maxScore(test), minScore, band: worst.band, safetyFlag, subscales };
+  }
+
+  return { score, maxScore: maxScore(test), minScore, band: pickBand(test.bands, score), safetyFlag };
+}
+
+/** Pika për shfaqje: numër i plotë te shumat, dy shifra dhjetore me presje te mesatarja. */
+export function formatScore(n: number): string {
+  return Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ",");
+}
+
+/** Rezultati në një rresht, për email dhe subjekt: "14 / 21 – I moderuar" ose sipas nënshkallëve. */
+export function resultLine(result: TestResult): string {
+  if (result.subscales?.length) {
+    return result.subscales
+      .map((s) => `${s.label} ${formatScore(s.score)}/${s.maxScore} (${s.band.level})`)
+      .join("; ");
+  }
+  return `${formatScore(result.score)} / ${result.maxScore} – ${result.band.level}`;
 }

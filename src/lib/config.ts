@@ -32,8 +32,11 @@ export const config = {
   /** Ofruesi i emailit: "mock" (ruan në data/outbox) ose "resend". */
   emailProvider: process.env.EMAIL_PROVIDER ?? "mock",
 
-  /** Sa ditë ruhen përgjigjet e enkriptuara para se të fshihen. */
+  /** Sa ditë vlen linku i raportit (të dhënat janë brenda linkut; serveri nuk i ruan). */
   retentionDays: int("REPORT_RETENTION_DAYS", 30),
+
+  /** Pas sa orësh fshihet një porosi që nuk u pagua. */
+  pendingOrderHours: int("PENDING_ORDER_HOURS", 24),
 
   /** Dosja ku ruhen të dhënat (store-i JSON dhe outbox-i i emaileve). */
   dataDir: process.env.DATA_DIR ?? "data",

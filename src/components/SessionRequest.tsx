@@ -1,23 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Kërkesë për seancë me psikologun, me një klikim.
  * Nuk ka tekst të lirë: klienti vetëm shpreh dëshirën për seancë, dhe psikologu
  * merr emailin e tij bashkë me rezultatin e testit, për ta kontaktuar.
+ *
+ * Serveri nuk ruan asgjë për raportin; që kërkesa u dërgua mbahet mend vetëm te ky shfletues.
  */
-export default function SessionRequest({
-  token,
-  alreadyRequested,
-}: {
-  token: string;
-  alreadyRequested: boolean;
-}) {
-  const [state, setState] = useState<"idle" | "busy" | "sent" | "error">(
-    alreadyRequested ? "sent" : "idle",
-  );
+export default function SessionRequest({ token }: { token: string }) {
+  const [state, setState] = useState<"idle" | "busy" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  // Fundi i token-it mjafton si çelës; token-i i plotë nuk kopjohet te localStorage.
+  const storageKey = `pn-seanca-${token.slice(-24)}`;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        if (window.localStorage.getItem(storageKey)) setState("sent");
+      } catch {
+        // localStorage i bllokuar: butoni mbetet aktiv.
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [storageKey]);
 
   async function request() {
     setState("busy");
@@ -35,6 +42,11 @@ export default function SessionRequest({
         return;
       }
       setState("sent");
+      try {
+        window.localStorage.setItem(storageKey, "1");
+      } catch {
+        // Pa localStorage: kërkesa u dërgua gjithsesi.
+      }
     } catch {
       setError("Nuk u lidhëm dot me serverin. Provoni përsëri.");
       setState("error");

@@ -2,14 +2,19 @@ import { config } from "@/lib/config";
 import { getEmailProvider } from "@/lib/email";
 import { openReport } from "@/lib/orders";
 import { buildSessionRequestEmail } from "@/lib/report";
-import { getOrderByReportToken, updateOrder } from "@/lib/store";
+import { createHash } from "node:crypto";
 
 /**
  * POST /api/session-request
  * Body: { token }
- * Njofton psikologun se klienti kërkon një seancë. Dërgohet vetëm një herë për raport.
- * Klienti nuk e sheh kurrë adresën e psikologut.
+ * Njofton psikologun se klienti kërkon një seancë. Klienti nuk e sheh kurrë adresën e psikologut.
+ *
+ * Serveri nuk ruan asgjë për raportin, pra as faktin që seanca u kërkua. Përsëritjet i ndal
+ * shfletuesi (localStorage) dhe kjo listë në kujtesë, që mban vetëm hash-in e token-it dhe
+ * zbrazet në çdo rinisje.
  */
+const requested = new Set<string>();
+
 export async function POST(request: Request) {
   let body: Partial<{ token: string }>;
   try {
@@ -21,11 +26,11 @@ export async function POST(request: Request) {
     return Response.json({ error: "Mungon token-i i raportit." }, { status: 400 });
   }
 
-  const order = await getOrderByReportToken(body.token);
-  const view = order ? openReport(order) : null;
-  if (!order || !view) return Response.json({ error: "Raporti nuk u gjet." }, { status: 404 });
+  const view = openReport(body.token);
+  if (!view) return Response.json({ error: "Raporti nuk u gjet." }, { status: 404 });
 
-  if (order.sessionRequestedAt) return Response.json({ ok: true, already: true });
+  const fingerprint = createHash("sha256").update(body.token).digest("hex");
+  if (requested.has(fingerprint)) return Response.json({ ok: true, already: true });
 
   const mail = buildSessionRequestEmail({
     test: view.test,
@@ -39,7 +44,7 @@ export async function POST(request: Request) {
     replyTo: view.email,
     ...mail,
   });
-  await updateOrder(order.id, { sessionRequestedAt: new Date().toISOString() });
+  requested.add(fingerprint);
 
   return Response.json({ ok: true });
 }

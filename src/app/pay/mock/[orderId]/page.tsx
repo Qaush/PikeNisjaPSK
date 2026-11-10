@@ -44,38 +44,29 @@ async function MockCheckout({ params }: { params: PageProps<"/pay/mock/[orderId]
           </div>
         </dl>
 
-        {order.status === "paid" ? (
-          <p className="mt-6 rounded-xl bg-accent-soft p-3 text-sm">
-            Kjo porosi është paguar tashmë.{" "}
-            <Link href={`/report/${order.reportToken}`} className="font-semibold text-accent underline">
-              Hap raportin
-            </Link>
-          </p>
-        ) : (
-          <form action="/api/payments/mock/confirm" method="post" className="mt-6 flex flex-col gap-3">
-            <input type="hidden" name="orderId" value={order.id} />
-            <div className="grid gap-2">
-              <label className="text-xs text-muted">Numri i kartës (simulim)</label>
-              <input
-                disabled
-                value="4242 4242 4242 4242"
-                className="rounded-xl border border-border bg-background px-3 py-2.5 font-mono text-sm text-muted"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-accent px-5 py-3.5 text-base font-semibold text-white transition hover:bg-accent-strong"
-            >
-              Paguaj {formatPrice(order.amountCents)}
-            </button>
-            <Link
-              href={`/test/${order.testSlug}`}
-              className="text-center text-sm text-muted hover:text-foreground"
-            >
-              Anulo dhe kthehu
-            </Link>
-          </form>
-        )}
+        <form action="/api/payments/mock/confirm" method="post" className="mt-6 flex flex-col gap-3">
+          <input type="hidden" name="orderId" value={order.id} />
+          <div className="grid gap-2">
+            <label className="text-xs text-muted">Numri i kartës (simulim)</label>
+            <input
+              disabled
+              value="4242 4242 4242 4242"
+              className="rounded-xl border border-border bg-background px-3 py-2.5 font-mono text-sm text-muted"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-accent px-5 py-3.5 text-base font-semibold text-white transition hover:bg-accent-strong"
+          >
+            Paguaj {formatPrice(order.amountCents)}
+          </button>
+          <Link
+            href={`/test/${order.testSlug}`}
+            className="text-center text-sm text-muted hover:text-foreground"
+          >
+            Anulo dhe kthehu
+          </Link>
+        </form>
       </div>
     </div>
   );

@@ -25,6 +25,5 @@ const store = pick();
 
 export const createOrder: OrderStore["createOrder"] = (o) => store.createOrder(o);
 export const getOrder: OrderStore["getOrder"] = (id) => store.getOrder(id);
-export const getOrderByReportToken: OrderStore["getOrderByReportToken"] = (t) =>
-  store.getOrderByReportToken(t);
 export const updateOrder: OrderStore["updateOrder"] = (id, p) => store.updateOrder(id, p);
+export const deleteOrder: OrderStore["deleteOrder"] = (id) => store.deleteOrder(id);

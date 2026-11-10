@@ -1,17 +1,17 @@
 # PikëNisja – teste psikologjike vetëvlerësuese
 
 Web-aplikacion (desktop + telefon) ku një person plotëson një test të shkurtër psikologjik
-(GAD-7 për ankthin, PHQ-9 për depresionin), paguan 2 € dhe merr raportin në email. Nga raporti
+(GAD-7, PHQ-9, DASS-21, Brief Resilience Scale), paguan 2 € dhe merr raportin në email. Nga raporti
 mund të kërkojë me një klikim një seancë me psikologun.
 
 ## Rrjedha
 
 1. `/` – lista e testeve
 2. `/test/[slug]` – pyetjet një nga një (vetëm në shfletues), pastaj emaili + pëlqimi
-3. `POST /api/checkout` – ruan porosinë (email dhe përgjigje **të enkriptuara**) dhe krijon pagesën
+3. `POST /api/checkout` – ruan porosinë në pritje (email dhe përgjigje **të enkriptuara**) dhe krijon pagesën
 4. Pagesa te ofruesi (në zhvillim: faqja e simuluar `/pay/mock/[orderId]`)
-5. Pas pagesës: `completePayment()` → gjeneron token sekret, dërgon emailin, ridrejton te `/report/[token]`
-6. `/report/[token]` – raporti i plotë + butoni "Kërko një seancë" (`POST /api/session-request`, një herë për raport)
+5. Pas pagesës: `completePayment()` → ndërton linkun e raportit, **fshin porosinë**, dërgon emailin, ridrejton te `/report/[token]`
+6. `/report/[token]` – raporti i plotë + butoni "Kërko një seancë" (`POST /api/session-request`). Token-i është vetë raporti i enkriptuar (testi, përgjigjet, emaili, data); serveri nuk ruan asgjë
 
 ## Nisja lokale
 
@@ -83,7 +83,9 @@ vetëm te Logs. Për testim real nga psikologu vendosni SMTP.
 
 - [ ] Ofrues pagese real: Paddle ose Lemon Squeezy (pranojnë tregtarë nga Kosova, merren me TVSH-në e BE-së). Zbatohet te `src/lib/payments/` dhe `src/app/api/payments/webhook/route.ts`.
 - [ ] Email nga domeni juaj (SMTP i hostingut, ose Resend/Postmark) në vend të Gmail-it, që emailet të mos bien në spam.
-- [ ] Rishikim i përkthimeve shqip të GAD-7 / PHQ-9 nga psikolog klinik.
+- [ ] Rishikim i përkthimeve shqip të GAD-7 / PHQ-9 / DASS-21 / BRS nga psikolog klinik.
+- [ ] BRS (Brief Resilience Scale): leja për përdorim me pagesë s'është konfirmuar (burimet e gjetura flasin për kërkim dhe edukim me citim) – të pyetet autori para se testi të shitet.
+- [ ] PSQI nuk është shtuar: e drejta e autorit është e Universitetit të Pittsburgh-ut dhe përdorimi komercial kërkon licencë.
 - [ ] Verifikim i numrave të urgjencës te `src/lib/safety.ts`.
 - [ ] Rishikim juridik i `/privatesia` dhe `/kushtet`.
 - [ ] `DATA_ENCRYPTION_KEY` i fortë në mjedisin e prodhimit; `NEXT_PUBLIC_BASE_URL` me domenin real.
@@ -91,6 +93,9 @@ vetëm te Logs. Për testim real nga psikologu vendosni SMTP.
 
 ## Shënim mbi privatësinë
 
-Nuk kërkohet emër apo llogari. Emaili dhe përgjigjet ruhen vetëm të enkriptuara dhe fshihen
-automatikisht pas `REPORT_RETENTION_DAYS` ditësh. Të dhënat e kartës i trajton vetëm ofruesi i
+Nuk kërkohet emër apo llogari. Pas dërgimit të raportit serveri nuk ruan asnjë të dhënë: porosia
+fshihet sapo kryhet pagesa (e papaguara pas `PENDING_ORDER_HOURS` orësh), dhe raporti jeton vetëm te
+linku i enkriptuar, që vlen `REPORT_RETENTION_DAYS` ditë. Pasojë: nëse ndërrohet
+`DATA_ENCRYPTION_KEY`, linqet e dërguara më parë nuk hapen më. Me `EMAIL_PROVIDER=mock` emailet
+shkruhen te `data/outbox/` (vetëm për zhvillim). Të dhënat e kartës i trajton vetëm ofruesi i
 pagesës. Adresa e psikologut nuk i shfaqet kurrë klientit; kërkesa për seancë kalon përmes serverit.

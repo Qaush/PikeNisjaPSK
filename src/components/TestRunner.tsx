@@ -85,7 +85,6 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
           </li>
           <li className="rounded-xl border border-border bg-surface p-3">
             <strong className="block text-foreground">Anonim</strong>
-            emaili kërkohet vetëm në fund
           </li>
         </ul>
         <p className="rounded-xl bg-accent-soft p-4 text-sm leading-relaxed text-foreground">
@@ -241,7 +240,7 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
 
       <p className="text-xs leading-relaxed text-muted">
         Pagesa kryhet te një ofrues i sigurt pagesash; {brandName} nuk e ruan kurrë numrin e kartës
-        suaj. Përgjigjet ruhen të enkriptuara dhe fshihen automatikisht.
+        suaj. Pas dërgimit të raportit nuk ruhet asnjë e dhënë juaja.
       </p>
     </form>
   );

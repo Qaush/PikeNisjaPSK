@@ -4,7 +4,7 @@ import SessionRequest from "@/components/SessionRequest";
 import { config } from "@/lib/config";
 import { openReport } from "@/lib/orders";
 import { helplines, safetyMessage } from "@/lib/safety";
-import { getOrderByReportToken } from "@/lib/store";
+import { formatScore } from "@/lib/tests";
 
 export const metadata = { title: "Raporti juaj" };
 
@@ -18,16 +18,15 @@ const toneClasses: Record<string, string> = {
 
 async function Report({ params }: { params: PageProps<"/report/[token]">["params"] }) {
   const { token } = await params;
-  const order = await getOrderByReportToken(token);
-  const view = order ? openReport(order) : null;
+  const view = openReport(token);
 
   if (!view) {
     return (
       <div className="flex flex-col items-start gap-4">
         <h1 className="text-2xl font-semibold">Raporti nuk u gjet</h1>
         <p className="leading-relaxed text-muted">
-          Linku mund të jetë i gabuar, ose raporti është fshirë automatikisht pas{" "}
-          {config.retentionDays} ditësh për të mbrojtur privatësinë tuaj.
+          Linku mund të jetë i gabuar ose i paplotë, ose ka skaduar: linku i raportit vlen{" "}
+          {config.retentionDays} ditë.
         </p>
         <Link href="/" className="font-semibold text-accent underline">
           Kthehu te testet
@@ -36,9 +35,11 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
     );
   }
 
-  const { test, result, answers } = view;
+  const { test, result, answers, date } = view;
   const showSafety = result.safetyFlag || result.band.tone === "severe";
-  const pct = Math.round((result.score / result.maxScore) * 100);
+  const pctOf = (score: number, min: number, max: number) =>
+    Math.round(((score - min) / (max - min)) * 100);
+  const pct = pctOf(result.score, result.minScore, result.maxScore);
 
   return (
     <article className="flex flex-col gap-8">
@@ -47,7 +48,7 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         <h1 className="mt-2 text-3xl font-semibold leading-tight tracking-tight">{test.title}</h1>
         <p className="mt-1 text-sm text-muted">
           Plotësuar më{" "}
-          {new Date(order!.paidAt ?? order!.createdAt).toLocaleDateString("sq-AL", {
+          {date.toLocaleDateString("sq-AL", {
             day: "numeric",
             month: "long",
             year: "numeric",
@@ -56,29 +57,50 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         </p>
       </header>
 
-      <section className={`rounded-2xl border p-6 ${toneClasses[result.band.tone]}`}>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-sm opacity-80">Pikët tuaja</p>
-            <p className="text-5xl font-semibold leading-none">
-              {result.score}
-              <span className="text-xl opacity-60"> / {result.maxScore}</span>
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-sm opacity-80">Niveli</p>
-            <p className="text-2xl font-semibold">{result.band.level}</p>
-          </div>
-        </div>
-        <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-black/10">
-          <div className="h-full rounded-full bg-current opacity-70" style={{ width: `${pct}%` }} />
-        </div>
-        <div className="mt-2 flex justify-between text-[11px] opacity-70">
-          {test.bands.map((b) => (
-            <span key={b.level}>{b.level}</span>
+      {result.subscales ? (
+        <section className="grid gap-4 sm:grid-cols-3">
+          {result.subscales.map((s) => (
+            <div key={s.id} className={`rounded-2xl border p-5 ${toneClasses[s.band.tone]}`}>
+              <p className="text-sm font-semibold">{s.label}</p>
+              <p className="mt-2 text-4xl font-semibold leading-none">
+                {formatScore(s.score)}
+                <span className="text-base opacity-60"> / {s.maxScore}</span>
+              </p>
+              <p className="mt-2 text-lg font-semibold">{s.band.level}</p>
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-black/10">
+                <div
+                  className="h-full rounded-full bg-current opacity-70"
+                  style={{ width: `${pctOf(s.score, 0, s.maxScore)}%` }}
+                />
+              </div>
+            </div>
           ))}
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className={`rounded-2xl border p-6 ${toneClasses[result.band.tone]}`}>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm opacity-80">Pikët tuaja</p>
+              <p className="text-5xl font-semibold leading-none">
+                {formatScore(result.score)}
+                <span className="text-xl opacity-60"> / {result.maxScore}</span>
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm opacity-80">Niveli</p>
+              <p className="text-2xl font-semibold">{result.band.level}</p>
+            </div>
+          </div>
+          <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-black/10">
+            <div className="h-full rounded-full bg-current opacity-70" style={{ width: `${pct}%` }} />
+          </div>
+          <div className="mt-2 flex justify-between text-[11px] opacity-70">
+            {test.bands.map((b) => (
+              <span key={b.level}>{b.level}</span>
+            ))}
+          </div>
+        </section>
+      )}
 
       {showSafety && (
         <section className="rounded-2xl border border-rose-300 bg-rose-50 p-5 text-rose-950">
@@ -97,14 +119,29 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         </section>
       )}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold">Çfarë do të thotë ky rezultat</h2>
-        <p className="leading-relaxed">{result.band.summary}</p>
-        <h3 className="mt-2 font-semibold">Çfarë sugjerohet</h3>
-        <p className="leading-relaxed">{result.band.recommendation}</p>
-      </section>
+      {result.subscales ? (
+        <section className="flex flex-col gap-5">
+          <h2 className="text-lg font-semibold">Çfarë do të thotë ky rezultat</h2>
+          {result.subscales.map((s) => (
+            <div key={s.id} className="flex flex-col gap-1">
+              <h3 className="font-semibold">
+                {s.label}: {s.band.level}
+              </h3>
+              <p className="leading-relaxed">{s.band.summary}</p>
+              <p className="leading-relaxed text-muted">{s.band.recommendation}</p>
+            </div>
+          ))}
+        </section>
+      ) : (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold">Çfarë do të thotë ky rezultat</h2>
+          <p className="leading-relaxed">{result.band.summary}</p>
+          <h3 className="mt-2 font-semibold">Çfarë sugjerohet</h3>
+          <p className="leading-relaxed">{result.band.recommendation}</p>
+        </section>
+      )}
 
-      <SessionRequest token={token} alreadyRequested={Boolean(order!.sessionRequestedAt)} />
+      <SessionRequest token={token} />
 
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-semibold">Përgjigjet tuaja</h2>
@@ -138,8 +175,9 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
           Burimi i instrumentit: {test.source} {test.license}
         </p>
         <p className="mt-2">
-          Privatësia: emaili dhe përgjigjet tuaja ruhen të enkriptuara dhe fshihen automatikisht pas{" "}
-          {config.retentionDays} ditësh. Ruajeni këtë link nëse doni ta rihapni raportin deri atëherë.
+          Privatësia: {config.brandName} nuk ruan asnjë të dhënë tuajën. Raporti hapet vetëm nga ky
+          link, që ju ka ardhur edhe në email dhe vlen {config.retentionDays} ditë; mos e ndani me të
+          tjerë.
         </p>
       </section>
     </article>

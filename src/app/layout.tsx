@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
+import FeedbackWidget from "@/components/FeedbackWidget";
 import Year from "@/components/Year";
 import { config } from "@/lib/config";
 import "./globals.css";
@@ -12,7 +13,7 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: {
-    default: `${config.brandName} – Teste psikologjike vetëvlerësuese`,
+    default: `${config.brandName} – Teste psikologjike`,
     template: `%s | ${config.brandName}`,
   },
   description:
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </p>
           </div>
         </footer>
+        <FeedbackWidget />
       </body>
     </html>
   );

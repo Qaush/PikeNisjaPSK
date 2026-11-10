@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col gap-10">
       <section className="flex flex-col gap-4">
         <p className="text-xs font-semibold uppercase tracking-widest text-accent">
-          Teste psikologjike vetëvlerësuese
+          Teste psikologjike
         </p>
         <h1 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
           Kuptoni si jeni, në më pak se 5 minuta.
@@ -19,7 +19,7 @@ export default function Home() {
         </p>
         <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           <li>✓ Pa regjistrim</li>
-          <li>✓ Të dhëna të enkriptuara</li>
+          <li>✓ Asnjë e dhënë nuk ruhet</li>
           <li>✓ Mundësi për seancë me psikolog</li>
         </ul>
       </section>
@@ -54,7 +54,7 @@ export default function Home() {
 
       <section className="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-3">
         {[
-          ["1", "Përgjigjuni", "Pyetje të shkurtra për dy javët e fundit. Pa emër, pa llogari."],
+          ["1", "Përgjigjuni", "Pyetje të shkurtra për javët e fundit. Pa emër, pa llogari."],
           ["2", "Merrni raportin", `Pas pagesës prej ${formatPrice()}, raporti ju vjen menjëherë në email.`],
           ["3", "Kërkoni seancë", "Nëse doni, me një klikim nga raporti kërkoni një seancë me psikologun."],
         ].map(([n, title, body]) => (
@@ -71,7 +71,7 @@ export default function Home() {
       </section>
 
       <p className="text-sm leading-relaxed text-muted">
-        {config.brandName} përdor instrumente të lira për përdorim publik (GAD-7, PHQ-9), me
+        {config.brandName} përdor instrumente të lira për përdorim publik ({TESTS.map((t) => t.code).join(", ")}), me
         përkthim në shqip. Rezultatet janë orientuese dhe nuk zëvendësojnë vlerësimin e një
         profesionisti.
       </p>

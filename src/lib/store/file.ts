@@ -42,7 +42,7 @@ async function mutate<T>(fn: (db: Db) => T): Promise<T> {
 }
 
 function purgeExpired(db: Db) {
-  const cutoff = Date.now() - config.retentionDays * 24 * 60 * 60 * 1000;
+  const cutoff = Date.now() - config.pendingOrderHours * 60 * 60 * 1000;
   db.orders = db.orders.filter((o) => new Date(o.createdAt).getTime() >= cutoff);
 }
 
@@ -56,14 +56,15 @@ export const fileStore: OrderStore = {
   async getOrder(id) {
     return (await readDb()).orders.find((o) => o.id === id);
   },
-  async getOrderByReportToken(token) {
-    return (await readDb()).orders.find((o) => o.reportToken === token && o.status === "paid");
-  },
   updateOrder: (id, patch) =>
     mutate((db) => {
       const o = db.orders.find((x) => x.id === id);
       if (!o) return undefined;
       Object.assign(o, patch);
       return o;
+    }),
+  deleteOrder: (id) =>
+    mutate((db) => {
+      db.orders = db.orders.filter((o) => o.id !== id);
     }),
 };

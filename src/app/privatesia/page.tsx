@@ -18,17 +18,25 @@ export default function PrivacyPage() {
 
       <h2 className="text-lg font-semibold">Si i mbrojmë</h2>
       <ul className="list-disc space-y-1 pl-5">
-        <li>Emaili dhe përgjigjet ruhen <strong>të enkriptuara</strong> (AES-256) në server.</li>
-        <li>Raporti hapet vetëm me një link sekret që ju vjen në email.</li>
-        <li>Të dhënat <strong>fshihen automatikisht pas {config.retentionDays} ditësh</strong>.</li>
-        <li>Nuk i shesim, nuk i ndajmë me palë të treta për marketing dhe nuk i përdorim për reklama.</li>
+        <li>
+          <strong>{config.brandName} nuk ruan asnjë të dhënë tuajën.</strong> Pasi t&apos;ju dërgohet raporti,
+          te ne nuk mbeten as përgjigjet, as emaili juaj.
+        </li>
+        <li>
+          Gjatë pagesës, përgjigjet dhe emaili mbahen të enkriptuara vetëm sa për të përgatitur raportin dhe
+          fshihen sapo ai dërgohet (ose brenda {config.pendingOrderHours} orësh, nëse pagesa nuk kryhet).
+        </li>
+        <li>
+          Raporti hapet vetëm nga linku që ju vjen në email. Linku vlen {config.retentionDays} ditë; mos e
+          ndani me të tjerë.
+        </li>
       </ul>
 
       <h2 className="text-lg font-semibold">Baza ligjore dhe të drejtat tuaja</h2>
       <p>
         Të dhënat për shëndetin janë kategori e veçantë. I përpunojmë vetëm me <strong>pëlqimin tuaj të shprehur</strong>,
-        që e jepni para pagesës. Mund ta tërhiqni pëlqimin dhe të kërkoni fshirjen e menjëhershme të të dhënave
-        duke na shkruar; do t&apos;i fshijmë brenda 72 orëve.
+        që e jepni para pagesës. Meqë pas dërgimit të raportit nuk ruajmë asgjë, te ne nuk ka të dhëna për t&apos;u
+        fshirë; raporti mbetet vetëm në emailin tuaj.
       </p>
 
       <h2 className="text-lg font-semibold">Kërkesa për seancë</h2>

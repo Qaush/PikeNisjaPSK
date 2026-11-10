@@ -16,6 +16,8 @@ export type Question = {
   text: string;
   /** Pyetje "sinjalizuese": çdo përgjigje > 0 shfaq mesazhin e sigurisë në raport. */
   safetyFlag?: boolean;
+  /** Pyetje e formuluar në të kundërt: pikëzohet (min + max − përgjigjja). */
+  reverse?: boolean;
 };
 
 export type SeverityBand = {
@@ -31,6 +33,14 @@ export type SeverityBand = {
   summary: string;
   /** Çfarë sugjerohet të bëhet më tej. */
   recommendation: string;
+};
+
+/** Nënshkallë e një testi (p.sh. Depresioni / Ankthi / Stresi te DASS-21), me intervalet e veta. */
+export type Subscale = {
+  id: string;
+  label: string;
+  questionIds: string[];
+  bands: SeverityBand[];
 };
 
 export type TestDefinition = {
@@ -52,15 +62,40 @@ export type TestDefinition = {
   options: AnswerOption[];
   questions: Question[];
   bands: SeverityBand[];
+  /**
+   * Mënyra e pikëzimit: "sum" (parazgjedhja) mbledh përgjigjet; "mean" merr mesataren
+   * (p.sh. BRS). Intervalet (bands) janë në të njëjtën njësi me pikën e llogaritur.
+   */
+  scoring?: "sum" | "mean";
+  /** Shumëzues i shumës (DASS-21 = 2, që pikët të krahasohen me DASS-42). */
+  multiplier?: number;
+  /**
+   * Nënshkallët. Kur ekzistojnë, secila pikëzohet veç dhe niveli i përgjithshëm i raportit
+   * është ai i nënshkallës më të rëndë; `bands` i testit nuk përdoret.
+   */
+  subscales?: Subscale[];
   /** Burimi/autorët e instrumentit origjinal, për transparencë në raport. */
   source: string;
   /** Statusi i licencës: a lejohet përdorimi pa pagesë. */
   license: string;
 };
 
+export type SubscaleResult = {
+  id: string;
+  label: string;
+  score: number;
+  maxScore: number;
+  band: SeverityBand;
+  bands: SeverityBand[];
+};
+
 export type TestResult = {
   score: number;
   maxScore: number;
+  /** Pika më e ulët e mundshme (0 te shumat, 1 te mesatarja 1–5); për shiritin e raportit. */
+  minScore: number;
+  /** Rezultatet e nënshkallëve, kur testi i ka. */
+  subscales?: SubscaleResult[];
   band: SeverityBand;
   /** True nëse ndonjë pyetje sinjalizuese ka marrë përgjigje > 0. */
   safetyFlag: boolean;
