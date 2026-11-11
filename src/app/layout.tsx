@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import Link from "next/link";
+import { Suspense } from "react";
 import FeedbackWidget from "@/components/FeedbackWidget";
+import FooterDisclaimer from "@/components/FooterDisclaimer";
 import Year from "@/components/Year";
 import { config } from "@/lib/config";
 import "./globals.css";
@@ -46,12 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">{children}</main>
         <footer className="border-t border-border">
           <div className="mx-auto w-full max-w-2xl px-4 py-6 text-xs leading-relaxed text-muted">
-            <p>
-              Testet në këtë faqe janë vetëvlerësime orientuese dhe <strong>nuk janë diagnozë</strong>.
-              Vetëm një profesionist i shëndetit mendor mund të bëjë vlerësim klinik. Nëse jeni në
-              rrezik të menjëhershëm, telefononi urgjencën.
-            </p>
-            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            <Suspense fallback={null}>
+              <FooterDisclaimer />
+            </Suspense>
+            <p className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/privatesia" className="hover:text-foreground">Politika e privatësisë</Link>
               <Link href="/kushtet" className="hover:text-foreground">Kushtet e përdorimit</Link>
               <span>© <Year /> {config.brandName}</span>
