@@ -64,11 +64,12 @@ export default function Home() {
           <h3 className="font-semibold">Karakteri i rezultateve</h3>
           <div className="mt-2 flex flex-col gap-3 text-sm leading-relaxed text-muted">
             <p>
-              Rezultatet kanë karakter orientues dhe nuk përbëjnë diagnozë. Testimi në{" "}
+              Rezultatet kanë <strong className="text-foreground">karakter orientues</strong> dhe nuk përbëjnë diagnozë. Testimi në{" "}
               {config.brandName} nuk mund të përcaktojë nëse keni një çrregullim psikologjik. Ai
-              tregon vetëm shkallën e simptomave që keni raportuar në një moment të caktuar. Një
-              pikëzim i lartë nuk do të thotë se keni një çrregullim, ndërsa një pikëzim i ulët nuk
-              do të thotë se gjithçka është në rregull.
+              tregon vetëm shkallën e simptomave që keni raportuar{" "}
+              <strong className="text-foreground">në një moment të caktuar</strong>. Një pikëzim i lartë{" "}
+              <strong className="text-foreground">nuk do të thotë</strong> se keni një çrregullim, ndërsa një pikëzim i ulët{" "}
+              <strong className="text-foreground">nuk do të thotë</strong> se gjithçka është në rregull.
             </p>
             <p>
               Diagnoza vendoset vetëm pas një vlerësimi të plotë klinik, që përfshin takime me një
