@@ -2,6 +2,10 @@ import Link from "next/link";
 import { config, formatPrice } from "@/lib/config";
 import { TESTS } from "@/lib/tests";
 
+/**
+ * Faqja fillestare. Teksti hyrës, blloku "Rreth faqes" dhe njoftimi i urgjencës janë sipas
+ * kërkesës 1FFgPTDv të psikologes (11.11.2026): gjuhë akademike, pa formulime reklamuese.
+ */
 export default function Home() {
   return (
     <div className="flex flex-col gap-10">
@@ -10,18 +14,14 @@ export default function Home() {
           Teste psikologjike
         </p>
         <h1 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-          Kuptoni si jeni, në më pak se 5 minuta.
+          Vlerësim orientues i shqetësimeve psikologjike
         </h1>
         <p className="text-base leading-relaxed text-muted sm:text-lg">
-          Teste të shkurtra, të validuara shkencërisht, që përdoren nga psikologët në gjithë
-          botën. Përgjigjuni anonimisht, dhe raportin e detajuar e merrni në email për{" "}
-          <strong className="text-foreground">{formatPrice()}</strong>.
+          {config.brandName} është krijuar për t&apos;ju ofruar një hapësirë të sigurt ku mund të
+          vlerësoni shqetësimet tuaja psikologjike përmes testeve të vlefshme dhe të besueshme.
+          Testet në këtë faqe përdoren gjerësisht në fushën e psikologjisë, si nga klinicistët
+          ashtu edhe nga hulumtuesit.
         </p>
-        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-          <li>✓ Pa regjistrim</li>
-          <li>✓ Asnjë e dhënë nuk ruhet</li>
-          <li>✓ Mundësi për seancë me psikolog</li>
-        </ul>
       </section>
 
       <section className="flex flex-col gap-4">
@@ -52,29 +52,66 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-3">
-        {[
-          ["1", "Përgjigjuni", "Pyetje të shkurtra për javët e fundit. Pa emër, pa llogari."],
-          ["2", "Merrni raportin", `Pas pagesës prej ${formatPrice()}, raporti ju vjen menjëherë në email.`],
-          ["3", "Kërkoni seancë", "Nëse doni, me një klikim nga raporti kërkoni një seancë me psikologun."],
-        ].map(([n, title, body]) => (
-          <div key={n} className="flex gap-3">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white">
-              {n}
-            </span>
-            <div>
-              <h3 className="font-semibold">{title}</h3>
-              <p className="text-sm leading-relaxed text-muted">{body}</p>
-            </div>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-lg font-semibold">Rreth faqes</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h3 className="font-semibold">Kush e ka krijuar</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Faqja është krijuar nga një e diplomuar në psikologji klinike (MSc).
+            </p>
           </div>
-        ))}
+          <div className="rounded-2xl border border-border bg-surface p-5">
+            <h3 className="font-semibold">Karakteri i rezultateve</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Rezultatet kanë karakter orientues dhe nuk përbëjnë diagnozë.
+            </p>
+          </div>
+        </div>
+        <div className="rounded-2xl border border-border bg-surface p-5">
+          <h3 className="font-semibold">Çfarë kërkon një diagnozë</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Një diagnozë e saktë kërkon, përveç testimit, edhe takime vlerësimi me një psikolog ose
+            psikiatër të licencuar, i cili merr parasysh historikun tuaj, simptomat dhe kontekstin
+            e jetës suaj.
+          </p>
+        </div>
+        <p
+          role="note"
+          className="rounded-2xl border border-rose-300 bg-rose-50 p-4 text-sm leading-relaxed text-rose-950"
+        >
+          Nëse jeni në rrezik të menjëhershëm, telefononi urgjencën:{" "}
+          <a href="tel:112" className="font-semibold underline">
+            112
+          </a>
+          .
+        </p>
       </section>
 
-      <p className="text-sm leading-relaxed text-muted">
-        {config.brandName} përdor instrumente të lira për përdorim publik ({TESTS.map((t) => t.code).join(", ")}), me
-        përkthim në shqip. Rezultatet janë orientuese dhe nuk zëvendësojnë vlerësimin e një
-        profesionisti.
-      </p>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-lg font-semibold">Si zhvillohet vlerësimi</h2>
+        <div className="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-3">
+          {[
+            ["1", "Plotësimi", "Përgjigjeni në mënyrë anonime, pa emër dhe pa llogari."],
+            ["2", "Raporti", `Pas pagesës prej ${formatPrice()}, raporti ju dërgohet në email.`],
+            ["3", "Seanca", "Nga raporti mund të kërkoni një seancë me psikologun."],
+          ].map(([n, title, body]) => (
+            <div key={n} className="flex gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white">
+                {n}
+              </span>
+              <div>
+                <h3 className="font-semibold">{title}</h3>
+                <p className="text-sm leading-relaxed text-muted">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="text-xs leading-relaxed text-muted">
+          Instrumentet e përdorura: {TESTS.map((t) => t.code).join(", ")}, me përkthim në shqip.
+          Pas dërgimit të raportit, {config.brandName} nuk ruan asnjë të dhënë tuajën.
+        </p>
+      </section>
     </div>
   );
 }
