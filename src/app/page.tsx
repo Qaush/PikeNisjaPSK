@@ -4,7 +4,7 @@ import { TESTS } from "@/lib/tests";
 
 /**
  * Faqja fillestare. Teksti hyrës, blloku "Rreth faqes" dhe njoftimi i urgjencës janë sipas
- * kërkesës 1FFgPTDv të psikologes (11.11.2026): gjuhë akademike, pa formulime reklamuese.
+ * kërkesave 1FFgPTDv dhe 5_MOzbLH të psikologes (11.11.2026): gjuhë akademike, pa formulime reklamuese.
  */
 export default function Home() {
   return (
@@ -54,27 +54,34 @@ export default function Home() {
 
       <section className="flex flex-col gap-4">
         <h2 className="text-lg font-semibold">Rreth faqes</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <h3 className="font-semibold">Kush e ka krijuar</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              Faqja është krijuar nga një e diplomuar në psikologji klinike (MSc).
-            </p>
-          </div>
-          <div className="rounded-2xl border border-border bg-surface p-5">
-            <h3 className="font-semibold">Karakteri i rezultateve</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              Rezultatet kanë karakter orientues dhe nuk përbëjnë diagnozë.
-            </p>
-          </div>
+        <div className="rounded-2xl border border-border bg-surface p-5">
+          <h3 className="font-semibold">Kush e ka krijuar</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Faqja është krijuar nga një e diplomuar në psikologji klinike (MSc).
+          </p>
         </div>
         <div className="rounded-2xl border border-border bg-surface p-5">
-          <h3 className="font-semibold">Çfarë kërkon një diagnozë</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted">
-            Një diagnozë e saktë kërkon, përveç testimit, edhe takime vlerësimi me një psikolog ose
-            psikiatër të licencuar, i cili merr parasysh historikun tuaj, simptomat dhe kontekstin
-            e jetës suaj.
-          </p>
+          <h3 className="font-semibold">Karakteri i rezultateve</h3>
+          <div className="mt-2 flex flex-col gap-3 text-sm leading-relaxed text-muted">
+            <p>
+              Rezultatet kanë karakter orientues dhe nuk përbëjnë diagnozë. Testimi në{" "}
+              {config.brandName} nuk mund të përcaktojë nëse keni një çrregullim psikologjik. Ai
+              tregon vetëm shkallën e simptomave që keni raportuar në një moment të caktuar. Një
+              pikëzim i lartë nuk do të thotë se keni një çrregullim, ndërsa një pikëzim i ulët nuk
+              do të thotë se gjithçka është në rregull.
+            </p>
+            <p>
+              Diagnoza vendoset vetëm pas një vlerësimi të plotë klinik, që përfshin takime me një
+              psikolog ose psikiatër të licencuar, i cili merr parasysh historikun tuaj, simptomat,
+              kontekstin e jetës suaj dhe, kur nevojitet, edhe teste të tjera. Rezultatet e{" "}
+              {config.brandName} nuk duhet të përdoren si zëvendësim i këtij vlerësimi, as për të
+              filluar ose ndërprerë trajtim.
+            </p>
+            <p>
+              Nëse rezultati ju shqetëson ose simptomat ndikojnë në jetën tuaj të përditshme, ju
+              inkurajojmë të kërkoni ndihmë nga një profesionist i shëndetit mendor.
+            </p>
+          </div>
         </div>
         <p
           role="note"
