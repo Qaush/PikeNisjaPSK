@@ -38,12 +38,6 @@ export default function TermsPage() {
         terapeutike. Psikologu ju kontakton për orarin, kushtet dhe çmimin e seancës, që janë të ndara
         nga çmimi i raportit.
       </p>
-
-      <h2 className="text-lg font-semibold">6. Pronësia intelektuale</h2>
-      <p>
-        Instrumentet GAD-7 dhe PHQ-9 janë të lira për përdorim publik. Përkthimi në shqip, dizajni dhe
-        teksti i raporteve janë pronë e {config.brandName}.
-      </p>
     </article>
   );
 }
