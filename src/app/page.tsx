@@ -68,8 +68,8 @@ export default function Home() {
               {config.brandName} nuk mund të përcaktojë nëse keni një çrregullim psikologjik. Ai
               tregon vetëm shkallën e simptomave që keni raportuar{" "}
               <strong className="text-foreground">në një moment të caktuar</strong>. Një pikëzim i lartë{" "}
-              <strong className="text-foreground">nuk do të thotë</strong> se keni një çrregullim, ndërsa një pikëzim i ulët{" "}
-              <strong className="text-foreground">nuk do të thotë</strong> se gjithçka është në rregull.
+              <strong className="text-foreground">nuk do të thotë</strong> se keni një çrregullim, ndërsa
+              një pikëzim i ulët nuk do të thotë se gjithçka është në rregull.
             </p>
             <p>
               Diagnoza vendoset vetëm pas një vlerësimi të plotë klinik, që përfshin takime me një
