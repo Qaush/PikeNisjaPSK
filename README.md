@@ -1,7 +1,7 @@
 # PikëNisja – teste psikologjike vetëvlerësuese
 
 Web-aplikacion (desktop + telefon) ku një person plotëson një test të shkurtër psikologjik
-(GAD-7, PHQ-9, DASS-21, Brief Resilience Scale), paguan 2 € dhe merr raportin në email. Nga raporti
+(GAD-7, PHQ-9, Brief Resilience Scale), paguan 2 € dhe merr raportin në email. Nga raporti
 mund të kërkojë me një klikim një seancë me psikologun.
 
 ## Rrjedha
