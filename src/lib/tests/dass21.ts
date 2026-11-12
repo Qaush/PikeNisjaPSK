@@ -28,8 +28,27 @@ import type { SeverityBand, TestDefinition } from "./types";
 type Cutoffs = [normal: number, mild: number, moderate: number, severe: number];
 
 /** Ndërton 5 nivelet e manualit për një shkallë (pikët tashmë të shumëzuara me 2, 0–42). */
-function bands(what: string, cut: Cutoffs): SeverityBand[] {
+function bands(
+  what: string,
+  cut: Cutoffs,
+  meanings: [mild: string, moderate: string, severe: string, extreme: string],
+): SeverityBand[] {
   const [normal, mild, moderate, severe] = cut;
+  const base = bandsBase(what, normal, mild, moderate, severe);
+  base[0].meaning = `Sipas këtij vlerësimi nuk ka nivele domethënëse për ${what}.`;
+  meanings.forEach((m, i) => {
+    base[i + 1].meaning = m;
+  });
+  return base;
+}
+
+function bandsBase(
+  what: string,
+  normal: number,
+  mild: number,
+  moderate: number,
+  severe: number,
+): SeverityBand[] {
   return [
     {
       min: 0,
@@ -142,19 +161,34 @@ export const dass21: TestDefinition = {
       id: "depresioni",
       label: "Depresioni",
       questionIds: ["q3", "q5", "q10", "q13", "q16", "q17", "q21"],
-      bands: bands("depresionin", [9, 13, 20, 27]),
+      bands: bands("depresionin", [9, 13, 20, 27], [
+        "Mund të përjetoni herë pas here humor të ulët, rënie të motivimit ose më pak kënaqësi nga gjërat e zakonshme.",
+        "Mund të përjetoni humor të ulët më të shpeshtë, humbje interesi, mungesë nisme dhe vetëkritikë.",
+        "Mund të përjetoni ndjenja të theksuara pashprese, mungesë motivimi dhe vetëkritikë të fortë.",
+        "Mund të përjetoni ndjenja shumë të forta pashprese dhe pavlefshmërie, humbje të thellë të interesit dhe vështirësi serioze në funksionimin e përditshëm.",
+      ]),
     },
     {
       id: "ankthi",
       label: "Ankthi",
       questionIds: ["q2", "q4", "q7", "q9", "q15", "q19", "q20"],
-      bands: bands("ankthin", [7, 9, 14, 19]),
+      bands: bands("ankthin", [7, 9, 14, 19], [
+        "Mund të përjetoni shenja të lehta të tensionit trupor ose shqetësim në situata të caktuara.",
+        "Mund të përjetoni simptoma trupore të ankthit, si dridhje, rrahje të shpejta të zemrës ose tharje të gojës, dhe shqetësim për situata ku mund t'ju kapë paniku.",
+        "Mund të përjetoni frikë të shpeshtë, simptoma trupore të theksuara dhe prirje për t'i shmangur situatat që e shtojnë ankthin.",
+        "Mund të përjetoni frikë dërrmuese, sulme paniku, simptoma trupore të rënda dhe vështirësi të ndjeshme në funksionimin e përditshëm.",
+      ]),
     },
     {
       id: "stresi",
       label: "Stresi",
       questionIds: ["q1", "q6", "q8", "q11", "q12", "q14", "q18"],
-      bands: bands("stresin", [14, 18, 25, 33]),
+      bands: bands("stresin", [14, 18, 25, 33], [
+        "Mund të përjetoni vështirësi të herëpashershme për t'u relaksuar dhe irritim më të lehtë se zakonisht.",
+        "Mund të përjetoni tension të vazhdueshëm, vështirësi për t'u relaksuar, padurim dhe irritim.",
+        "Mund të përjetoni tension të lartë e të zgjatur, reagime të tepruara ndaj situatave dhe ndjenjën e mbingarkesës.",
+        "Mund të përjetoni tension shumë të lartë e të vazhdueshëm dhe ndjenjën se kërkesat e përditshme ju tejkalojnë.",
+      ]),
     },
   ],
   about: [

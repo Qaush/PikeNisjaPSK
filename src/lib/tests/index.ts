@@ -90,6 +90,7 @@ export function scoreTest(
       return {
         id: s.id,
         label: s.label,
+        questionIds: s.questionIds,
         score: subScore,
         maxScore: maxScore(test, questions.length),
         band: pickBand(s.bands, subScore),
@@ -119,4 +120,32 @@ export function resultLine(result: TestResult): string {
       .join("; ");
   }
   return `${formatScore(result.score)} / ${result.maxScore} – ${result.band.level}`;
+}
+
+export type ContributingItem = { number: number; text: string; answer: string };
+
+/**
+ * Pohimet që kontribuan më shumë në rezultatin e një shkalle: ato me përgjigje në të tretën
+ * e sipërme të shkallës së përgjigjeve (p.sh. 2 ose 3 nga 0–3), nga më e larta. Deri në 5.
+ * Për testet me mesatare (p.sh. BRS) nuk kthen asgjë, sepse aty pikët e larta janë pozitive.
+ */
+export function contributingItems(
+  test: TestDefinition,
+  answers: Record<string, number>,
+  questionIds?: string[],
+): ContributingItem[] {
+  if (test.scoring === "mean") return [];
+  const values = test.options.map((o) => o.value);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const threshold = min + ((max - min) * 2) / 3;
+  return test.questions
+    .map((q, i) => ({ q, number: i + 1, value: answers[q.id] ?? min }))
+    .filter((x) => (!questionIds || questionIds.includes(x.q.id)) && x.value >= threshold)
+    .sort((a, b) => b.value - a.value || a.number - b.number)
+    .slice(0, 5)
+    .map((x) => {
+      const option = test.options.find((o) => o.value === x.value);
+      return { number: x.number, text: x.q.text, answer: option?.short ?? option?.label ?? "" };
+    });
 }

@@ -33,6 +33,11 @@ export type SeverityBand = {
   tone: "ok" | "mild" | "moderate" | "high" | "severe";
   /** Shpjegim i shkurtër se çfarë do të thotë ky rezultat. */
   summary: string;
+  /**
+   * "Çka mund të thotë kjo": përjetimet tipike në këtë nivel. Kur mungon, në raport
+   * nën këtë titull shfaqet `summary`.
+   */
+  meaning?: string;
   /** Çfarë sugjerohet të bëhet më tej. */
   recommendation: string;
 };
@@ -94,6 +99,7 @@ export type TestDefinition = {
 export type SubscaleResult = {
   id: string;
   label: string;
+  questionIds: string[];
   score: number;
   maxScore: number;
   band: SeverityBand;

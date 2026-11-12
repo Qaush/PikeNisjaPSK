@@ -5,7 +5,7 @@ import { config } from "@/lib/config";
 import { openReport } from "@/lib/orders";
 import { professionsNote } from "@/lib/professions";
 import { helplines, safetyMessage } from "@/lib/safety";
-import { formatScore } from "@/lib/tests";
+import { contributingItems, formatScore } from "@/lib/tests";
 
 export const metadata = { title: "Raporti juaj" };
 
@@ -41,6 +41,20 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
   const scales = result.subscales
     ? result.subscales.map((s) => ({ label: s.label, bands: s.bands, current: s.band }))
     : [{ label: "Pikët", bands: test.bands, current: result.band }];
+  // Interpretimi për çdo shkallë: niveli, çka mund të thotë, pohimet që kontribuan, rekomandimi.
+  const interpretations = result.subscales
+    ? result.subscales.map((sub) => ({
+        label: sub.label,
+        band: sub.band,
+        items: sub.band.tone === "ok" ? [] : contributingItems(test, answers, sub.questionIds),
+      }))
+    : [
+        {
+          label: test.code,
+          band: result.band,
+          items: result.band.tone === "ok" ? [] : contributingItems(test, answers),
+        },
+      ];
   const showSafety = result.safetyFlag || result.band.tone === "severe";
   const pctOf = (score: number, min: number, max: number) =>
     Math.round(((score - min) / (max - min)) * 100);
@@ -134,27 +148,35 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         </section>
       )}
 
-      {result.subscales ? (
-        <section className="flex flex-col gap-5">
-          <h2 className="text-lg font-semibold">Çfarë do të thotë ky rezultat</h2>
-          {result.subscales.map((s) => (
-            <div key={s.id} className="flex flex-col gap-1">
-              <h3 className="font-semibold">
-                {s.label}: {s.band.level}
-              </h3>
-              <p className="leading-relaxed">{s.band.summary}</p>
-              <p className="leading-relaxed text-muted">{s.band.recommendation}</p>
-            </div>
-          ))}
-        </section>
-      ) : (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Çfarë do të thotë ky rezultat</h2>
-          <p className="leading-relaxed">{result.band.summary}</p>
-          <h3 className="mt-2 font-semibold">Çfarë sugjerohet</h3>
-          <p className="leading-relaxed">{result.band.recommendation}</p>
-        </section>
-      )}
+      <section className="flex flex-col gap-6">
+        <h2 className="text-lg font-semibold">Interpretimi</h2>
+        {interpretations.map((s) => (
+          <div key={s.label} className="flex flex-col gap-2">
+            <h3 className="font-semibold">
+              {s.label}: {s.band.level}
+            </h3>
+            {s.band.meaning && <p className="leading-relaxed">{s.band.summary}</p>}
+            <p className="leading-relaxed">
+              <strong>Çka mund të thotë kjo:</strong> {s.band.meaning ?? s.band.summary}
+            </p>
+            {s.items.length > 0 && (
+              <div className="text-sm leading-relaxed text-muted">
+                <p>Pohimet që kontribuan më shumë në këtë rezultat:</p>
+                <ul className="mt-1 list-disc space-y-0.5 pl-5">
+                  {s.items.map((item) => (
+                    <li key={item.number}>
+                      {item.number}. {item.text} ({item.answer})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <p className="leading-relaxed">
+              <strong>Rekomandimi:</strong> {s.band.recommendation}
+            </p>
+          </div>
+        ))}
+      </section>
 
       <section className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold">Psikologu dhe psikiatri</h2>

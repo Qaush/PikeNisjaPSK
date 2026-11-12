@@ -2,6 +2,7 @@ import { config } from "./config";
 import { professionsNote } from "./professions";
 import { helplines, safetyMessage } from "./safety";
 import {
+  contributingItems,
   formatScore,
   resultLine,
   type SeverityBand,
@@ -35,6 +36,8 @@ const esc = (s: string) =>
 
 type Scale = {
   label: string;
+  /** Pohimet e shkallës; mungon kur shkalla është i gjithë testi. */
+  questionIds?: string[];
   score: number;
   min: number;
   max: number;
@@ -46,6 +49,7 @@ function scalesOf(test: TestDefinition, result: TestResult): Scale[] {
   if (result.subscales?.length) {
     return result.subscales.map((s) => ({
       label: s.label,
+      questionIds: s.questionIds,
       score: s.score,
       min: 0,
       max: s.maxScore,
@@ -133,13 +137,23 @@ export function buildReportDocument(opts: {
   </div>`
       : "";
 
+  const P = "margin:0 0 6px;font-size:13px;line-height:1.55";
   const interpretation = scales
-    .map(
-      (s) => `
-  <p style="margin:10px 0 4px;font-size:13px;font-weight:600">${result.subscales ? `${esc(s.label)}: ` : ""}${esc(s.band.level)}</p>
-  <p style="margin:0 0 4px;font-size:13px;line-height:1.55">${esc(s.band.summary)}</p>
-  <p style="margin:0 0 8px;font-size:13px;line-height:1.55">${esc(s.band.recommendation)}</p>`,
-    )
+    .map((s) => {
+      const items = s.band.tone === "ok" ? [] : contributingItems(test, answers, s.questionIds);
+      const itemList = items.length
+        ? `<p style="margin:0 0 2px;font-size:13px;line-height:1.55">Pohimet që kontribuan më shumë në këtë rezultat:</p>
+  <ul style="margin:0 0 6px;padding-left:20px;font-size:13px;line-height:1.5">${items
+    .map((i) => `<li>${i.number}. ${esc(i.text)} (${esc(i.answer)})</li>`)
+    .join("")}</ul>`
+        : "";
+      return `
+  <p style="margin:12px 0 4px;font-size:13px;font-weight:600">${esc(s.label)}: ${esc(s.band.level)}</p>
+  ${s.band.meaning ? `<p style="${P}">${esc(s.band.summary)}</p>` : ""}
+  <p style="${P}"><strong>Çka mund të thotë kjo:</strong> ${esc(s.band.meaning ?? s.band.summary)}</p>
+  ${itemList}
+  <p style="${P}"><strong>Rekomandimi:</strong> ${esc(s.band.recommendation)}</p>`;
+    })
     .join("");
 
   const rangeRows = scales[0].bands
