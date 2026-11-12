@@ -5,14 +5,17 @@ import type { SeverityBand, TestDefinition } from "./types";
  * Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales
  * (2nd ed.). Sydney: Psychology Foundation. Faqja zyrtare: https://dass.psy.unsw.edu.au/
  *
- * Ky version ndjek faqen zyrtare të autorëve (kërkesat dOGN-lYp dhe OtPn4AAJ të psikologes,
- * 12.11.2026), jo PDF-në e Black Dog Institute që ishte përdorur më parë:
- *  - Pohimet dhe shkalla e përgjigjeve: përkthimi shqip i publikuar në faqen zyrtare, nga
- *    Dr. Ertan Basha dhe Mehmet Kaya (Sakarya University). Janë marrë FJALË PËR FJALË, me
- *    drejtshkrimin e origjinalit, sepse autorët nuk lejojnë modifikimin e shkallëve. Faqja
- *    zyrtare nuk jep garanci për vlefshmërinë e përkthimeve.
- *  - Pikëzimi: shuma e 7 pohimeve të secilës shkallë shumëzohet me 2 (FAQ e faqes zyrtare),
- *    dhe krahasohet me pragjet e manualit.
+ * Burimet (kërkesa v14PYyej e psikologes, 12.11.2026):
+ *  - Pohimet: teksti anglisht i formularit DASS-21 (i njëjtë në PDF-në që dërgoi psikologia
+ *    dhe në formularin zyrtar), i përkthyer në shqip për këtë faqe. Përkthimi i publikuar në
+ *    faqen zyrtare (Basha & Kaya) u provua më parë dhe u hoq: kishte gabime drejtshkrimi dhe
+ *    shkallë përgjigjesh të ndryshme nga origjinali.
+ *  - Udhëzimi dhe shkalla e përgjigjeve: sipas formularit zyrtar të autorëve (katër
+ *    përshkrimet, pa fjalët KURRË/NGANJËHERË/SHPESH të PDF-së së Black Dog Institute).
+ *  - Pikëzimi: sipas autorëve origjinalë. Shuma e 7 pohimeve të secilës shkallë shumëzohet
+ *    me 2 (FAQ e faqes zyrtare) dhe krahasohet me pragjet e manualit.
+ *
+ * Përkthimi duhet rishikuar nga psikologu.
  *
  * KUJDES – kushtet e autorëve (FAQ 9 dhe 21 të faqes zyrtare): DASS nuk duhet administruar në
  * faqe të hapura për publikun dhe pikët e llogaritura nuk duhet t'i shfaqen plotësuesit.
@@ -84,47 +87,53 @@ export const dass21: TestDefinition = {
   description:
     "DASS-21 (Lovibond & Lovibond, 1995) mat veçmas tri gjendje emocionale: depresionin, ankthin dhe stresin. Përbëhet nga 21 pohime të shkurtra dhe zgjat rreth 5 minuta.",
   instruction:
-    "Për secilin pohim zgjidhni përgjigjen që ju përshtatet më së shumti për javën e fundit. Jepni vetëm një përgjigje për secilin pohim.",
+    "Lexoni secilin pohim dhe zgjidhni numrin 0, 1, 2 ose 3 që tregon sa ka vlejtur pohimi për ju gjatë javës së fundit. Mos kaloni shumë kohë në asnjë pohim.",
   timeframe: "java e fundit",
   minutes: 5,
   options: [
-    { value: 0, label: "Aspak nuk pajtohem" },
-    { value: 1, label: "Nuk pajtohem" },
-    { value: 2, label: "Pajtohem" },
-    { value: 3, label: "Gjithsesi pajtohem" },
+    { value: 0, label: "Nuk vlen aspak për mua", short: "Aspak" },
+    { value: 1, label: "Vlen për mua deri diku, ose herë pas here", short: "Deri diku" },
+    {
+      value: 2,
+      label: "Vlen për mua në masë të konsiderueshme, ose një pjesë të mirë të kohës",
+      short: "Në masë të konsiderueshme",
+    },
+    { value: 3, label: "Vlen shumë për mua, ose shumicën e kohës", short: "Shumë" },
   ],
-  // Pohimet: përkthimi i Basha & Kaya nga faqja zyrtare, i pandryshuar (shih komentin në krye).
   questions: [
-    { id: "q1", text: "E kam vështir të relaksohem" },
-    { id: "q2", text: "Goja më thahet" },
-    { id: "q3", text: "Nuk kam përjetu ndjenjat pozitive" },
+    { id: "q1", text: "E kam pasur të vështirë të qetësohem." },
+    { id: "q2", text: "Kam vënë re tharje të gojës." },
+    { id: "q3", text: "Më dukej se nuk mund të përjetoja asnjë ndjenjë pozitive." },
     {
       id: "q4",
-      text: "Kam vështërsi në frymemarje (p.sh; edhe pse nuk bëjë ushtrime fizike, veshtërsi në frymarje apo ritëm të shpejt në zemer kam)",
+      text: "Kam pasur vështirësi në frymëmarrje (p.sh. frymëmarrje tepër të shpejtë, mungesë fryme pa bërë përpjekje fizike).",
     },
-    { id: "q5", text: "Punët që dua të bëjë, e kam të vështir tija fillojë" },
-    { id: "q6", text: "Reagojë shpejt ndaj ngjarjeve" },
-    { id: "q7", text: "Ndjej dridhje në trupe (p.sh; dridhja e duarve)" },
-    { id: "q8", text: "Ndjej se shum energji hargjoj si skak i nervozës" },
+    { id: "q5", text: "E kam pasur të vështirë të gjej nismën për të bërë gjëra." },
+    { id: "q6", text: "Kam pasur prirje të reagoj në mënyrë të tepruar ndaj situatave." },
+    { id: "q7", text: "Kam pasur dridhje (p.sh. në duar)." },
+    { id: "q8", text: "Kam ndier se po harxhoja shumë energji nervore." },
     {
       id: "q9",
-      text: "Shqetësohem për shkak të situatave ku mund të dukem qesharak dhe të më kaplojë paniku",
+      text: "Jam shqetësuar për situata në të cilat mund të më kapte paniku dhe të bëhesha qesharak/e.",
     },
-    { id: "q10", text: "Nuk pres asgjë dhe nuk shpresojë azgjë" },
-    { id: "q11", text: "Bie shpejt në provokime" },
-    { id: "q12", text: "Kam vështërsi të relaksohem" },
-    { id: "q13", text: "Ndjehem i trishtuar dhe i len pas dore" },
-    { id: "q14", text: "Nuk toleroj pengesa në punë" },
-    { id: "q15", text: "Mua më kapë paniku shum leht" },
-    { id: "q16", text: "Unë nuk jam entuziast dhe i gëzuar për të bërë diçka" },
-    { id: "q17", text: "E ndjej vetën si njeri i pa vlefshëm" },
-    { id: "q18", text: "Jam tepër i ndjeshëm dhe prekem shpejt" },
+    { id: "q10", text: "Kam ndier se nuk kisha asgjë për të pritur me padurim." },
+    { id: "q11", text: "E kam vënë re se po bëhesha i/e trazuar." },
+    { id: "q12", text: "E kam pasur të vështirë të relaksohem." },
+    { id: "q13", text: "Jam ndier i/e dëshpëruar dhe i/e trishtuar." },
+    {
+      id: "q14",
+      text: "Nuk kam toleruar asgjë që më pengonte të vazhdoja me atë që po bëja.",
+    },
+    { id: "q15", text: "Kam ndier se isha afër panikut." },
+    { id: "q16", text: "Nuk kam mundur të entuziazmohem për asgjë." },
+    { id: "q17", text: "Kam ndier se nuk vlej shumë si person." },
+    { id: "q18", text: "Kam ndier se isha mjaft i/e prekshëm/e." },
     {
       id: "q19",
-      text: "Pa asnjë aktivitet fizik ndjej ritme të shpejta të rrahjes së zemrës (p.sh; rrahjet të forta të zemrës dhe të ndyshueshme)",
+      text: "I kam ndier rrahjet e zemrës pa bërë përpjekje fizike (p.sh. ndjesi e shpejtimit të rrahjeve, kapërcim i një rrahjeje).",
     },
-    { id: "q20", text: "Friksohem pa ndonjë arsye" },
-    { id: "q21", text: "Ndjej se jeta nuk ka kuptim, nuk ja vlen të jetohet" },
+    { id: "q20", text: "Jam ndier i/e frikësuar pa ndonjë arsye të mirë." },
+    { id: "q21", text: "Kam ndier se jeta ishte e pakuptimtë." },
   ],
   multiplier: 2,
   bands: [],
@@ -173,7 +182,6 @@ export const dass21: TestDefinition = {
       heading: "Autorët",
       paragraphs: [
         "Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). Sydney: Psychology Foundation.",
-        "Përkthimi në shqip: Dr. Ertan Basha dhe Mehmet Kaya, Sakarya University, i publikuar në faqen zyrtare të DASS (dass.psy.unsw.edu.au).",
       ],
     },
   ],
@@ -184,6 +192,6 @@ export const dass21: TestDefinition = {
     "Rezultatet e DASS nuk përcaktojnë vetë ndërhyrjen e duhur. Ato duhen përdorur së bashku me të gjithë informacionin klinik, nga një profesionist i shëndetit mendor.",
   ],
   source:
-    "Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). Sydney: Psychology Foundation. Përkthimi në shqip: Dr. Ertan Basha dhe Mehmet Kaya (Sakarya University).",
+    "Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). Sydney: Psychology Foundation.",
   license: "Në domenin publik; përdoret pa leje.",
 };

@@ -85,8 +85,9 @@ vetëm te Logs. Për testim real nga psikologu vendosni SMTP.
 - [ ] Email nga domeni juaj (SMTP i hostingut, ose Resend/Postmark) në vend të Gmail-it, që emailet të mos bien në spam.
 - [ ] Rishikim i përkthimeve shqip të GAD-7 / PHQ-9 / DASS-21 / BRS nga psikolog klinik.
 - [ ] BRS (Brief Resilience Scale): leja për përdorim me pagesë s'është konfirmuar (burimet e gjetura flasin për kërkim dhe edukim me citim) – të pyetet autori para se testi të shitet.
-- [ ] DASS-21: autorët (FAQ 9 dhe 21 te dass.psy.unsw.edu.au) thonë që DASS nuk duhet administruar në faqe të hapura për publikun dhe pikët nuk duhet t'i shfaqen plotësuesit. Testi është shtuar me vendim të psikologes, pasi u njoftua; pohimet janë përkthimi zyrtar shqip (Basha & Kaya), i pandryshuar.
+- [ ] DASS-21: autorët (FAQ 9 dhe 21 te dass.psy.unsw.edu.au) thonë që DASS nuk duhet administruar në faqe të hapura për publikun dhe pikët nuk duhet t'i shfaqen plotësuesit. Testi është shtuar me vendim të psikologes, pasi u njoftua; pohimet janë përkthim i yni nga formulari anglisht.
 - [ ] PSQI nuk është shtuar: e drejta e autorit është e Universitetit të Pittsburgh-ut dhe përdorimi komercial kërkon licencë.
+- [ ] WHO-5 nuk është shtuar: botimi i OBSH-së (2024) është me licencë CC BY-NC-SA 3.0 IGO, pra vetëm për përdorim jokomercial; për një shërbim me pagesë duhet leja e OBSH-së.
 - [ ] EPDS (Edinburgh Postnatal Depression Scale) nuk është shtuar: e drejta e autorit është e Royal College of Psychiatrists; përkthimi, publikimi elektronik dhe përdorimi komercial kërkojnë lejen e tyre me shkrim.
 - [ ] BDI (Beck Depression Inventory) nuk është shtuar: e drejta e autorit është e Pearson-it dhe riprodhimi, përkthimi e përdorimi komercial kërkojnë licencë. Alternativë në domenin publik: CES-D.
 - [ ] Verifikim i numrave të urgjencës te `src/lib/safety.ts`.
