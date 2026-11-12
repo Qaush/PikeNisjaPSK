@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { TestDefinition } from "@/lib/tests/types";
 
 type Props = {
@@ -25,6 +25,9 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Koha e plotësimit: nga "Fillo testin" deri te përgjigjja e fundit (për raportin).
+  const startedAt = useRef<number | null>(null);
+  const [durationSec, setDurationSec] = useState<number | undefined>(undefined);
 
   const total = test.questions.length;
   const question = test.questions[index];
@@ -36,7 +39,10 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
     // Kalo automatikisht te pyetja tjetër pas një pauze të shkurtër, që të shihet zgjedhja.
     window.setTimeout(() => {
       if (index + 1 < total) setIndex(index + 1);
-      else setStep("checkout");
+      else {
+        if (startedAt.current) setDurationSec(Math.round((Date.now() - startedAt.current) / 1000));
+        setStep("checkout");
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 180);
   }
@@ -49,7 +55,7 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ testSlug: test.slug, email, answers, consent }),
+        body: JSON.stringify({ testSlug: test.slug, email, answers, consent, durationSec }),
       });
       const data = (await res.json()) as { redirectUrl?: string; error?: string };
       if (!res.ok || !data.redirectUrl) {
@@ -103,7 +109,10 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
         </p>
         <button
           type="button"
-          onClick={() => setStep("questions")}
+          onClick={() => {
+            startedAt.current = Date.now();
+            setStep("questions");
+          }}
           className="w-full rounded-xl bg-accent px-5 py-3.5 text-base font-semibold text-white transition hover:bg-accent-strong sm:w-auto"
         >
           Fillo testin

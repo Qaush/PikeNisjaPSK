@@ -29,6 +29,7 @@ export async function startCheckout(input: {
   testSlug: string;
   email: string;
   answers: Record<string, number>;
+  durationSec?: number;
 }): Promise<{ redirectUrl: string } | { error: string }> {
   const test = getTest(input.testSlug);
   if (!test) return { error: "Testi nuk u gjet." };
@@ -45,6 +46,7 @@ export async function startCheckout(input: {
     provider: config.paymentProvider,
     emailEnc: encryptJson(input.email.trim().toLowerCase()),
     answersEnc: encryptJson(input.answers),
+    durationSec: cleanDuration(input.durationSec),
     createdAt: new Date().toISOString(),
   };
   await createOrder(order);
@@ -64,6 +66,13 @@ export async function startCheckout(input: {
   return { redirectUrl: session.redirectUrl };
 }
 
+/** Kohëzgjatja vjen nga shfletuesi: pranohet vetëm numër i plotë i arsyeshëm (deri 6 orë). */
+function cleanDuration(value: unknown): number | undefined {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 && value <= 6 * 3600
+    ? Math.round(value)
+    : undefined;
+}
+
 /** Përmbajtja e token-it të raportit (e enkriptuar brenda linkut). Emra të shkurtër = link më i shkurtër. */
 type ReportPayload = {
   v: 1;
@@ -75,15 +84,24 @@ type ReportPayload = {
   e: string;
   /** data e pagesës, ISO */
   d: string;
+  /** kohëzgjatja e plotësimit në sekonda, nëse dihet */
+  s?: number;
 };
 
-function buildReportToken(test: TestDefinition, answers: Record<string, number>, email: string): string {
+function buildReportToken(
+  test: TestDefinition,
+  answers: Record<string, number>,
+  email: string,
+  date: Date,
+  durationSec?: number,
+): string {
   const payload: ReportPayload = {
     v: 1,
     t: test.slug,
     a: test.questions.map((q) => answers[q.id]),
     e: email,
-    d: new Date().toISOString(),
+    d: date.toISOString(),
+    ...(durationSec ? { s: durationSec } : {}),
   };
   return encryptJson(payload);
 }
@@ -104,14 +122,23 @@ export async function completePayment(orderId: string): Promise<
 
   const email = decryptJson<string>(order.emailEnc);
   const answers = decryptJson<Record<string, number>>(order.answersEnc);
-  const reportToken = buildReportToken(test, answers, email);
+  const date = new Date();
+  const reportToken = buildReportToken(test, answers, email, date, order.durationSec);
 
   // Fshihet para dërgimit të emailit: edhe nëse emaili dështon, asgjë s'mbetet te serveri.
   await deleteOrder(order.id);
 
   const result = scoreTest(test, answers);
   const reportUrl = `${config.baseUrl}/report/${reportToken}`;
-  const msg = buildReportEmail({ test, result, reportUrl });
+  const msg = buildReportEmail({
+    test,
+    result,
+    answers,
+    email,
+    date,
+    durationSec: order.durationSec,
+    reportUrl,
+  });
 
   try {
     await getEmailProvider().send({ to: email, ...msg });
@@ -130,6 +157,7 @@ export type ReportView = {
   email: string;
   /** Data e pagesës. */
   date: Date;
+  durationSec?: number;
 };
 
 /** Hap një raport nga token-i i linkut. Kthen null kur linku është i pavlefshëm ose ka skaduar. */
@@ -156,5 +184,12 @@ export function openReport(token: string): ReportView | null {
   });
   if (validateAnswers(test, answers)) return null;
 
-  return { test, result: scoreTest(test, answers), answers, email: payload.e, date };
+  return {
+    test,
+    result: scoreTest(test, answers),
+    answers,
+    email: payload.e,
+    date,
+    durationSec: cleanDuration(payload.s),
+  };
 }

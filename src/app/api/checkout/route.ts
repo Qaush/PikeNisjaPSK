@@ -2,7 +2,7 @@ import { startCheckout } from "@/lib/orders";
 
 /**
  * POST /api/checkout
- * Body: { testSlug, email, answers: { q1: 0..3, ... }, consent: true }
+ * Body: { testSlug, email, answers: { q1: 0..3, ... }, consent: true, durationSec? }
  * Kthen: { redirectUrl } ose { error }
  */
 export async function POST(request: Request) {
@@ -18,6 +18,7 @@ export async function POST(request: Request) {
     email: string;
     answers: Record<string, number>;
     consent: boolean;
+    durationSec: number;
   }>;
 
   if (b.consent !== true) {
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     testSlug: b.testSlug,
     email: b.email,
     answers: b.answers,
+    durationSec: b.durationSec,
   });
   if ("error" in res) return Response.json(res, { status: 400 });
   return Response.json(res);

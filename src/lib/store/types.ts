@@ -15,6 +15,8 @@ export type Order = {
   emailEnc: string;
   /** Përgjigjet e testit, të enkriptuara. */
   answersEnc: string;
+  /** Sa sekonda zgjati plotësimi i testit (matur te shfletuesi), nëse dihet. */
+  durationSec?: number;
   /** ID e transaksionit te ofruesi i pagesës, nëse ka. */
   providerRef?: string;
   createdAt: string;

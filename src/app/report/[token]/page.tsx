@@ -59,6 +59,16 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
           })}
           . Një kopje ju është dërguar në email.
         </p>
+        <p className="mt-3">
+          <a
+            href={`/report/${token}/dokument`}
+            target="_blank"
+            rel="noopener"
+            className="text-sm font-semibold text-accent underline"
+          >
+            Hap raportin si dokument (për printim ose PDF)
+          </a>
+        </p>
       </header>
 
       {result.subscales ? (
