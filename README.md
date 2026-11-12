@@ -86,6 +86,7 @@ vetëm te Logs. Për testim real nga psikologu vendosni SMTP.
 - [ ] Rishikim i përkthimeve shqip të GAD-7 / PHQ-9 / DASS-21 / BRS nga psikolog klinik.
 - [ ] BRS (Brief Resilience Scale): leja për përdorim me pagesë s'është konfirmuar (burimet e gjetura flasin për kërkim dhe edukim me citim) – të pyetet autori para se testi të shitet.
 - [ ] PSQI nuk është shtuar: e drejta e autorit është e Universitetit të Pittsburgh-ut dhe përdorimi komercial kërkon licencë.
+- [ ] BDI (Beck Depression Inventory) nuk është shtuar: e drejta e autorit është e Pearson-it dhe riprodhimi, përkthimi e përdorimi komercial kërkojnë licencë. Alternativë në domenin publik: CES-D.
 - [ ] Verifikim i numrave të urgjencës te `src/lib/safety.ts`.
 - [ ] Rishikim juridik i `/privatesia` dhe `/kushtet`.
 - [ ] `DATA_ENCRYPTION_KEY` i fortë në mjedisin e prodhimit; `NEXT_PUBLIC_BASE_URL` me domenin real.
