@@ -87,6 +87,16 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
             <strong className="block text-foreground">Anonim</strong>
           </li>
         </ul>
+        {test.about?.map((section) => (
+          <section key={section.heading} className="flex flex-col gap-2">
+            <h2 className="text-lg font-semibold">{section.heading}</h2>
+            {section.paragraphs.map((p) => (
+              <p key={p} className="leading-relaxed text-muted">
+                {p}
+              </p>
+            ))}
+          </section>
+        ))}
         <p className="rounded-xl bg-accent-soft p-4 text-sm leading-relaxed text-foreground">
           <strong>Udhëzim:</strong> {test.instruction} Nuk ka përgjigje të sakta apo të gabuara;
           përgjigjuni ashtu si e ndieni, pa u menduar gjatë.

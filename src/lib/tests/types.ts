@@ -76,6 +76,11 @@ export type TestDefinition = {
    * është ai i nënshkallës më të rëndë; `bands` i testit nuk përdoret.
    */
   subscales?: Subscale[];
+  /**
+   * Shpjegimi i hollësishëm i testit (çfarë është, për çka shërben, si lexohet rezultati),
+   * që shfaqet në faqen e parë të testit, para butonit "Fillo testin".
+   */
+  about?: { heading: string; paragraphs: string[] }[];
   /** Shënim për interpretimin, sipas manualit të instrumentit; shfaqet në raport (paragrafë). */
   interpretationNote?: string[];
   /** Burimi/autorët e instrumentit origjinal, për transparencë në raport. */

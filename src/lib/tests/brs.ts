@@ -83,6 +83,40 @@ export const brs: TestDefinition = {
         "Kjo është një forcë e rëndësishme. Mbani parasysh që edhe njerëzit me reziliencë të lartë kanë periudha kur u duhet mbështetje; kërkimi i ndihmës nuk e ul atë.",
     },
   ],
+  about: [
+    {
+      heading: "Çfarë është Brief Resilience Scale",
+      paragraphs: [
+        "Brief Resilience Scale (BRS) është një pyetësor vetëraportues me 6 pohime, i zhvilluar nga Smith dhe bashkëpunëtorët (2008). Ai mat reziliencën në kuptimin e saj bazë: aftësinë për ta marrë veten, pra për t'u rikthyer në gjendjen e mëparshme pas stresit.",
+        "Kjo e dallon nga shumica e shkallëve të tjera të reziliencës, të cilat matin burimet që e bëjnë reziliencën të mundshme (si mbështetja sociale ose optimizmi), dhe jo vetë aftësinë për t'u rimëkëmbur.",
+      ],
+    },
+    {
+      heading: "Për çka shërben",
+      paragraphs: [
+        "Përdoret në hulumtim dhe në praktikë për të vlerësuar sa lehtë një person e merr veten pas ngjarjeve stresuese, si dhe për të ndjekur ndryshimin e kësaj aftësie me kalimin e kohës. Nuk mat simptoma të një çrregullimi; rezultati i ulët nuk është shenjë sëmundjeje.",
+      ],
+    },
+    {
+      heading: "Si pikëzohet dhe si lexohet rezultati",
+      paragraphs: [
+        "Për secilin pohim tregoni sa pajtoheni, nga «nuk pajtohem aspak» (1) deri te «pajtohem plotësisht» (5). Tri pohime janë formuluar pozitivisht dhe tri negativisht; pohimet negative pikëzohen në të kundërt. Rezultati është mesatarja e gjashtë pohimeve dhe shkon nga 1 deri në 5.",
+        "Sipas Smith dhe bashkëpunëtorëve (2013), mesatarja 1,00–2,99 tregon reziliencë të ulët, 3,00–4,30 reziliencë normale dhe 4,31–5,00 reziliencë të lartë. Këto intervale janë përshkruese.",
+      ],
+    },
+    {
+      heading: "Kufizimet",
+      paragraphs: [
+        "BRS është një matje e shkurtër e bazuar në vetëvlerësim dhe pasqyron mënyrën si e shihni veten në këtë moment. Rezultati nuk është diagnozë dhe nuk parashikon si do të reagoni në çdo situatë të vështirë.",
+      ],
+    },
+    {
+      heading: "Autorët",
+      paragraphs: [
+        "Smith, B. W., Dalen, J., Wiggins, K., Tooley, E., Christopher, P., & Bernard, J. (2008). The Brief Resilience Scale: Assessing the ability to bounce back. International Journal of Behavioral Medicine, 15(3), 194–200.",
+      ],
+    },
+  ],
   source:
     "Smith BW, Dalen J, Wiggins K, Tooley E, Christopher P, Bernard J. Int J Behav Med. 2008;15(3):194-200.",
   license: "Përdoret me citim të autorëve.",

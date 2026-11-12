@@ -104,6 +104,41 @@ export const phq9: TestDefinition = {
         "Ju lutemi kontaktoni sa më shpejt një profesionist të shëndetit mendor ose mjekun tuaj. Nëse ndiheni në rrezik, përdorni numrat e urgjencës më poshtë. Nuk jeni vetëm, dhe ndihma ekziston.",
     },
   ],
+  about: [
+    {
+      heading: "Çfarë është PHQ-9",
+      paragraphs: [
+        "PHQ-9 (Patient Health Questionnaire-9) është një pyetësor vetëraportues me 9 pohime, i zhvilluar nga Kroenke, Spitzer dhe Williams (2001) si pjesë e Patient Health Questionnaire. Secili pohim i përgjigjet njërit nga nëntë kriteret diagnostike të episodit të depresionit madhor.",
+        "Pohimet mbulojnë humbjen e interesit dhe të kënaqësisë, humorin e dëshpëruar, gjumin, energjinë, oreksin, ndjenjën e pavlefshmërisë ose të fajit, përqendrimin, ngadalësimin ose shqetësimin psikomotor dhe mendimet për vdekjen ose vetëlëndimin.",
+      ],
+    },
+    {
+      heading: "Për çka shërben",
+      paragraphs: [
+        "Përdoret për depistimin (screening) e depresionit, për të matur ashpërsinë e simptomave dhe për të ndjekur ndryshimin e tyre me kalimin e kohës, për shembull përgjigjen ndaj trajtimit. Është një nga instrumentet më të përdorura në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim.",
+      ],
+    },
+    {
+      heading: "Si pikëzohet dhe si lexohet rezultati",
+      paragraphs: [
+        "Për secilin pohim tregoni sa shpesh ju ka shqetësuar gjatë dy javëve të fundit, nga «aspak» (0) deri te «pothuajse çdo ditë» (3). Pikët mblidhen dhe rezultati total shkon nga 0 deri në 27.",
+        "Rezultati 0–4 tregon simptoma minimale, 5–9 të lehta, 10–14 të moderuara, 15–19 mesatarisht të rënda dhe 20–27 të rënda. Në studimin origjinal, rezultati 10 e më shumë është pragu ku rekomandohet vlerësim i mëtejshëm klinik.",
+        "Pohimi i nëntë pyet për mendime për vdekjen ose vetëlëndimin. Çdo përgjigje tjetër përveç «aspak» në këtë pohim kërkon vëmendje të veçantë, pavarësisht rezultatit total, dhe në raport shoqërohet me informacion për ndihmë të menjëhershme.",
+      ],
+    },
+    {
+      heading: "Kufizimet",
+      paragraphs: [
+        "PHQ-9 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk dallon shkaqet e tyre, si humbja e një të afërmi, gjendje të tjera shëndetësore ose efektet e barnave. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
+      ],
+    },
+    {
+      heading: "Autorët",
+      paragraphs: [
+        "Kroenke, K., Spitzer, R. L., & Williams, J. B. W. (2001). The PHQ-9: Validity of a brief depression severity measure. Journal of General Internal Medicine, 16(9), 606–613.",
+      ],
+    },
+  ],
   source: "Kroenke K, Spitzer RL, Williams JBW. J Gen Intern Med. 2001;16:606-613.",
   license: "I lirë për përdorim, pa licencë.",
 };

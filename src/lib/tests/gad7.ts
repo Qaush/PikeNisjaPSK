@@ -80,6 +80,41 @@ export const gad7: TestDefinition = {
         "Ju rekomandojmë fuqimisht të kontaktoni sa më shpejt një psikolog ose mjek për një vlerësim të plotë. Ankthi i rëndë është i trajtueshëm, dhe ndihma profesionale bën diferencë të madhe.",
     },
   ],
+  about: [
+    {
+      heading: "Çfarë është GAD-7",
+      paragraphs: [
+        "GAD-7 (Generalized Anxiety Disorder 7-item scale) është një pyetësor vetëraportues me 7 pohime, i zhvilluar nga Spitzer, Kroenke, Williams dhe Löwe (2006) për të identifikuar çrregullimin e ankthit të përgjithësuar dhe për të matur ashpërsinë e simptomave të ankthit.",
+        "Pohimet pasqyrojnë simptomat kryesore të ankthit të përgjithësuar: nervozizmin, shqetësimin e pakontrollueshëm dhe të tepruar, vështirësinë për t'u relaksuar, shqetësimin motorik, irritimin dhe frikën se mund të ndodhë diçka e keqe.",
+      ],
+    },
+    {
+      heading: "Për çka shërben",
+      paragraphs: [
+        "Përdoret gjerësisht në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim, si instrument depistimi (screening) dhe për të ndjekur ndryshimin e simptomave me kalimin e kohës, për shembull gjatë një trajtimi.",
+        "Ndonëse është ndërtuar për ankthin e përgjithësuar, studimet tregojnë se është i ndjeshëm edhe ndaj çrregullimeve të tjera të ankthit, si çrregullimi i panikut, ankthi social dhe çrregullimi i stresit post-traumatik.",
+      ],
+    },
+    {
+      heading: "Si pikëzohet dhe si lexohet rezultati",
+      paragraphs: [
+        "Për secilin pohim tregoni sa shpesh ju ka shqetësuar gjatë dy javëve të fundit, nga «aspak» (0) deri te «pothuajse çdo ditë» (3). Pikët mblidhen dhe rezultati total shkon nga 0 deri në 21.",
+        "Rezultati 0–4 tregon ankth minimal, 5–9 të lehtë, 10–14 të moderuar dhe 15–21 të rëndë. Në studimin origjinal, rezultati 10 e më shumë është pragu ku rekomandohet vlerësim i mëtejshëm klinik.",
+      ],
+    },
+    {
+      heading: "Kufizimet",
+      paragraphs: [
+        "GAD-7 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk merr parasysh shkaqet e tyre, kohëzgjatjen më të gjatë apo gjendje të tjera shëndetësore. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
+      ],
+    },
+    {
+      heading: "Autorët",
+      paragraphs: [
+        "Spitzer, R. L., Kroenke, K., Williams, J. B. W., & Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: The GAD-7. Archives of Internal Medicine, 166(10), 1092–1097.",
+      ],
+    },
+  ],
   source: "Spitzer RL, Kroenke K, Williams JBW, Löwe B. Arch Intern Med. 2006;166:1092-1097.",
   license: "I lirë për përdorim, pa licencë.",
 };
