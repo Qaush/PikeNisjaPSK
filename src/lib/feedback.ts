@@ -16,7 +16,8 @@ import { randomToken } from "./crypto";
  * data/kerkesat-skedaret/<id>/ dhe nuk shërbehen kurrë prapa nga faqja: i lexon vetëm zhvilluesi.
  */
 
-export type FeedbackStatus = "e-re" | "ne-pune" | "kryer" | "pyetje";
+/** "nuk-u-krye": kërkesa u mbyll pa u zbatuar (p.sh. instrument me licencë); arsyeja është te `reply`. */
+export type FeedbackStatus = "e-re" | "ne-pune" | "kryer" | "pyetje" | "nuk-u-krye";
 
 export type FeedbackItem = {
   id: string;
@@ -113,7 +114,7 @@ export async function addFeedback(input: {
   let result!: FeedbackItem | { error: string };
   writeQueue = writeQueue.then(async () => {
     const items = await listFeedback();
-    if (items.filter((i) => i.status !== "kryer").length >= MAX_OPEN) {
+    if (items.filter((i) => i.status !== "kryer" && i.status !== "nuk-u-krye").length >= MAX_OPEN) {
       result = { error: "Ka shumë kërkesa të hapura. Prisni sa të kryhen disa." };
       return;
     }

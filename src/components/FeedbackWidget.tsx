@@ -13,7 +13,7 @@ type Item = {
   createdAt: string;
   page: string;
   text: string;
-  status: "e-re" | "ne-pune" | "kryer" | "pyetje";
+  status: "e-re" | "ne-pune" | "kryer" | "pyetje" | "nuk-u-krye";
   files?: string[];
   reply?: string;
 };
@@ -26,6 +26,7 @@ const STATUS: Record<Item["status"], { label: string; cls: string }> = {
   "ne-pune": { label: "Në punë", cls: "bg-amber-200 text-amber-900" },
   kryer: { label: "U krye", cls: "bg-accent text-white" },
   pyetje: { label: "Pyetje për ju", cls: "bg-red-200 text-red-900" },
+  "nuk-u-krye": { label: "Nuk u krye", cls: "bg-border text-foreground" },
 };
 
 export default function FeedbackWidget() {
@@ -104,7 +105,7 @@ export default function FeedbackWidget() {
     setFiles(picked);
   }
 
-  const openCount = items.filter((i) => i.status !== "kryer").length;
+  const openCount = items.filter((i) => i.status !== "kryer" && i.status !== "nuk-u-krye").length;
   const canSend = text.trim().length >= 3 || files.length > 0;
 
   return (

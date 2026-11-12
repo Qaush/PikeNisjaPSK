@@ -87,6 +87,7 @@ vetëm te Logs. Për testim real nga psikologu vendosni SMTP.
 - [ ] BRS (Brief Resilience Scale): leja për përdorim me pagesë s'është konfirmuar (burimet e gjetura flasin për kërkim dhe edukim me citim) – të pyetet autori para se testi të shitet.
 - [ ] DASS-21: autorët (FAQ 9 dhe 21 te dass.psy.unsw.edu.au) thonë që DASS nuk duhet administruar në faqe të hapura për publikun dhe pikët nuk duhet t'i shfaqen plotësuesit. Testi është shtuar me vendim të psikologes, pasi u njoftua; pohimet janë përkthimi zyrtar shqip (Basha & Kaya), i pandryshuar.
 - [ ] PSQI nuk është shtuar: e drejta e autorit është e Universitetit të Pittsburgh-ut dhe përdorimi komercial kërkon licencë.
+- [ ] EPDS (Edinburgh Postnatal Depression Scale) nuk është shtuar: e drejta e autorit është e Royal College of Psychiatrists; përkthimi, publikimi elektronik dhe përdorimi komercial kërkojnë lejen e tyre me shkrim.
 - [ ] BDI (Beck Depression Inventory) nuk është shtuar: e drejta e autorit është e Pearson-it dhe riprodhimi, përkthimi e përdorimi komercial kërkojnë licencë. Alternativë në domenin publik: CES-D.
 - [ ] Verifikim i numrave të urgjencës te `src/lib/safety.ts`.
 - [ ] Rishikim juridik i `/privatesia` dhe `/kushtet`.
