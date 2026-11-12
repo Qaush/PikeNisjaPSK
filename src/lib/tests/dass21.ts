@@ -191,6 +191,10 @@ export const dass21: TestDefinition = {
     "Emërtimet e niveleve përshkruajnë ku bie rezultati në raport me popullatën. «I lehtë», për shembull, do të thotë se personi është mbi mesataren e popullatës, por ende shumë nën ashpërsinë tipike të personave që kërkojnë ndihmë; nuk do të thotë nivel i lehtë i një çrregullimi.",
     "Rezultatet e DASS nuk përcaktojnë vetë ndërhyrjen e duhur. Ato duhen përdorur së bashku me të gjithë informacionin klinik, nga një profesionist i shëndetit mendor.",
   ],
+  scoringNote: [
+    "Secili nga 21 pohimet pikëzohet nga 0 deri në 3. Për secilën shkallë mblidhen 7 pohimet përkatëse dhe shuma shumëzohet me 2, kështu që rezultati i çdo shkalle shkon nga 0 deri në 42 (Lovibond & Lovibond, 1995).",
+    "Depresioni: pohimet 3, 5, 10, 13, 16, 17 dhe 21. Ankthi: pohimet 2, 4, 7, 9, 15, 19 dhe 20. Stresi: pohimet 1, 6, 8, 11, 12, 14 dhe 18.",
+  ],
   source:
     "Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). Sydney: Psychology Foundation.",
   license: "Në domenin publik; përdoret pa leje.",

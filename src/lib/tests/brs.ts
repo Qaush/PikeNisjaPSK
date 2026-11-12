@@ -110,6 +110,10 @@ export const brs: TestDefinition = {
       ],
     },
   ],
+  scoringNote: [
+    "Secili nga 6 pohimet pikëzohet nga 1 («nuk pajtohem aspak») deri në 5 («pajtohem plotësisht»). Pohimet 2, 4 dhe 6 janë formuluar negativisht dhe pikëzohen në të kundërt (1 bëhet 5, 2 bëhet 4, 4 bëhet 2, 5 bëhet 1).",
+    "Rezultati është mesatarja e gjashtë pohimeve dhe shkon nga 1,00 deri në 5,00.",
+  ],
   source:
     "Smith BW, Dalen J, Wiggins K, Tooley E, Christopher P, Bernard J. Int J Behav Med. 2008;15(3):194-200.",
   license: "Përdoret me citim të autorëve.",

@@ -131,6 +131,10 @@ export const phq9: TestDefinition = {
       ],
     },
   ],
+  scoringNote: [
+    "Secili nga 9 pohimet pikëzohet nga 0 («aspak») deri në 3 («pothuajse çdo ditë»). Rezultati është shuma e pikëve të të gjitha pohimeve dhe shkon nga 0 deri në 27.",
+    "Pohimi 9 (mendimet për vdekjen ose vetëlëndimin) shqyrtohet edhe veçmas, pavarësisht rezultatit total.",
+  ],
   source: "Kroenke K, Spitzer RL, Williams JBW. J Gen Intern Med. 2001;16:606-613.",
   license: "I lirë për përdorim, pa licencë.",
 };

@@ -36,6 +36,10 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
   }
 
   const { test, result, answers, date } = view;
+  // Kolonat e tabelës së shkallëve interpretuese: një për nënshkallë, ose një e vetme.
+  const scales = result.subscales
+    ? result.subscales.map((s) => ({ label: s.label, bands: s.bands, current: s.band }))
+    : [{ label: "Pikët", bands: test.bands, current: result.band }];
   const showSafety = result.safetyFlag || result.band.tone === "severe";
   const pctOf = (score: number, min: number, max: number) =>
     Math.round(((score - min) / (max - min)) * 100);
@@ -140,6 +144,50 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
           <p className="leading-relaxed">{result.band.recommendation}</p>
         </section>
       )}
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-lg font-semibold">Pikëzimi dhe shkallët interpretuese</h2>
+        {test.scoringNote?.map((p) => (
+          <p key={p} className="text-sm leading-relaxed text-muted">
+            {p}
+          </p>
+        ))}
+        <div className="overflow-x-auto rounded-2xl border border-border bg-surface">
+          <table className="w-full text-left text-sm">
+            <thead className="text-xs uppercase tracking-wide text-muted">
+              <tr className="border-b border-border">
+                <th scope="col" className="p-3 font-semibold">
+                  Niveli
+                </th>
+                {scales.map((s) => (
+                  <th key={s.label} scope="col" className="p-3 font-semibold">
+                    {s.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {scales[0].bands.map((band, row) => (
+                <tr key={band.level} className="border-b border-border last:border-0">
+                  <th scope="row" className="p-3 font-medium">
+                    {band.level}
+                  </th>
+                  {scales.map((s) => {
+                    const b = s.bands[row];
+                    const mine = b.level === s.current.level;
+                    return (
+                      <td key={s.label} className={`p-3 ${mine ? "font-semibold text-accent" : ""}`}>
+                        {formatScore(b.min)}–{formatScore(b.max)}
+                        {mine && <span className="ml-1 text-xs">← ju</span>}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {test.interpretationNote && (
         <section className="flex flex-col gap-3">

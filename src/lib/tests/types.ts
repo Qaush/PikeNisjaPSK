@@ -81,6 +81,8 @@ export type TestDefinition = {
    * që shfaqet në faqen e parë të testit, para butonit "Fillo testin".
    */
   about?: { heading: string; paragraphs: string[] }[];
+  /** Si pikëzohet testi (paragrafë); shfaqet në raport mbi tabelën e shkallëve interpretuese. */
+  scoringNote?: string[];
   /** Shënim për interpretimin, sipas manualit të instrumentit; shfaqet në raport (paragrafë). */
   interpretationNote?: string[];
   /** Burimi/autorët e instrumentit origjinal, për transparencë në raport. */

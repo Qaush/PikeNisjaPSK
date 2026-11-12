@@ -108,6 +108,9 @@ export const gad7: TestDefinition = {
       ],
     },
   ],
+  scoringNote: [
+    "Secili nga 7 pohimet pikëzohet nga 0 («aspak») deri në 3 («pothuajse çdo ditë»). Rezultati është shuma e pikëve të të gjitha pohimeve dhe shkon nga 0 deri në 21.",
+  ],
   source: "Spitzer RL, Kroenke K, Williams JBW, Löwe B. Arch Intern Med. 2006;166:1092-1097.",
   license: "I lirë për përdorim, pa licencë.",
 };
