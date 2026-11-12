@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import type { TestDefinition } from "@/lib/tests/types";
 
+/** Pika për shfaqje: numër i plotë, ose dy shifra dhjetore me presje (si te raporti). */
+function formatScore(n: number): string {
+  return Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ",");
+}
+
 type Props = {
   test: TestDefinition;
   priceLabel: string;
@@ -71,6 +76,10 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
   }
 
   if (step === "intro") {
+    // Kolonat e tabelës së shkallëve interpretuese: një për nënshkallë, ose një e vetme.
+    const scales = test.subscales?.length
+      ? test.subscales.map((sub) => ({ label: sub.label, bands: sub.bands }))
+      : [{ label: "Pikët", bands: test.bands }];
     return (
       <div className="flex flex-col gap-6">
         <div>
@@ -103,6 +112,44 @@ export default function TestRunner({ test, priceLabel, brandName }: Props) {
             ))}
           </section>
         ))}
+        <section className="flex flex-col gap-2">
+          <h2 className="text-lg font-semibold">Pikëzimi dhe shkallët interpretuese</h2>
+          {test.scoringNote?.map((p) => (
+            <p key={p} className="leading-relaxed text-muted">
+              {p}
+            </p>
+          ))}
+          <div className="mt-1 overflow-x-auto rounded-2xl border border-border bg-surface">
+            <table className="w-full text-left text-sm">
+              <thead className="text-xs uppercase tracking-wide text-muted">
+                <tr className="border-b border-border">
+                  <th scope="col" className="p-3 font-semibold">
+                    Niveli
+                  </th>
+                  {scales.map((s) => (
+                    <th key={s.label} scope="col" className="p-3 font-semibold">
+                      {s.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {scales[0].bands.map((band, row) => (
+                  <tr key={band.level} className="border-b border-border last:border-0">
+                    <th scope="row" className="p-3 font-medium">
+                      {band.level}
+                    </th>
+                    {scales.map((s) => (
+                      <td key={s.label} className="p-3">
+                        {formatScore(s.bands[row].min)}–{formatScore(s.bands[row].max)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
         <p className="rounded-xl bg-accent-soft p-4 text-sm leading-relaxed text-foreground">
           <strong>Udhëzim:</strong> {test.instruction} Nuk ka përgjigje të sakta apo të gabuara;
           përgjigjuni ashtu si e ndieni, pa u menduar gjatë.
