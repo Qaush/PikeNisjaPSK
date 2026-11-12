@@ -1,4 +1,5 @@
 import { brs } from "./brs";
+import { dass21 } from "./dass21";
 import { gad7 } from "./gad7";
 import { phq9 } from "./phq9";
 import type { Question, SeverityBand, TestDefinition, TestResult } from "./types";
@@ -13,11 +14,7 @@ export type {
   AnswerOption,
 } from "./types";
 
-/**
- * Testet e ofruara në faqe. DASS-21 u hoq nga lista me kërkesë të psikologes (a0z5OEoD,
- * 12.11.2026); përkufizimi i tij mbetet te ./dass21.ts dhe kthehet duke e shtuar këtu.
- */
-export const TESTS: TestDefinition[] = [gad7, phq9, brs];
+export const TESTS: TestDefinition[] = [gad7, phq9, dass21, brs];
 
 export function getTest(slug: string): TestDefinition | undefined {
   return TESTS.find((t) => t.slug === slug);
