@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Kutia e kërkesave për ndryshim, e dukshme vetëm për rishikuesin (psikologun) që ka hyrë
@@ -14,8 +14,12 @@ type Item = {
   page: string;
   text: string;
   status: "e-re" | "ne-pune" | "kryer" | "pyetje";
+  files?: string[];
   reply?: string;
 };
+
+const MAX_FILES = 5;
+const MAX_FILE_BYTES = 25 * 1024 * 1024;
 
 const STATUS: Record<Item["status"], { label: string; cls: string }> = {
   "e-re": { label: "E re", cls: "bg-border text-foreground" },
@@ -29,6 +33,8 @@ export default function FeedbackWidget() {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
   const [text, setText] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInput = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -59,17 +65,19 @@ export default function FeedbackWidget() {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, page: window.location.pathname }),
-      });
+      const body = new FormData();
+      body.set("text", text);
+      body.set("page", window.location.pathname);
+      for (const f of files) body.append("files", f);
+      const res = await fetch("/api/feedback", { method: "POST", body });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok) {
         setError(data.error ?? "Diçka shkoi keq.");
         return;
       }
       setText("");
+      setFiles([]);
+      if (fileInput.current) fileInput.current.value = "";
       await load();
     } catch {
       setError("Nuk u lidhëm dot me serverin. Provoni përsëri.");
@@ -78,7 +86,25 @@ export default function FeedbackWidget() {
     }
   }
 
+  function pickFiles(e: React.ChangeEvent<HTMLInputElement>) {
+    const picked = Array.from(e.target.files ?? []);
+    setError(null);
+    if (picked.length > MAX_FILES) {
+      setError(`Më së shumti ${MAX_FILES} skedarë për kërkesë.`);
+      e.target.value = "";
+      return;
+    }
+    const tooBig = picked.find((f) => f.size > MAX_FILE_BYTES);
+    if (tooBig) {
+      setError(`Skedari "${tooBig.name}" është më i madh se 25 MB.`);
+      e.target.value = "";
+      return;
+    }
+    setFiles(picked);
+  }
+
   const openCount = items.filter((i) => i.status !== "kryer").length;
+  const canSend = text.trim().length >= 3 || files.length > 0;
 
   return (
     <div className="fixed bottom-4 right-4 z-20 flex max-w-[calc(100vw-2rem)] flex-col items-end gap-2">
@@ -104,6 +130,17 @@ export default function FeedbackWidget() {
               placeholder="Çka duhet ndryshuar në këtë faqe? P.sh. «Pyetja 3 te ankthi: zëvendëso … me …»"
               className="w-full rounded-xl border border-border bg-background p-3 text-sm outline-none focus:border-accent"
             />
+            <label className="mt-2 block text-xs text-muted">
+              Bashkëngjit PDF (p.sh. manualin e një testi)
+              <input
+                ref={fileInput}
+                type="file"
+                accept="application/pdf,.pdf"
+                multiple
+                onChange={pickFiles}
+                className="mt-1 block w-full text-xs file:mr-2 file:rounded-lg file:border-0 file:bg-accent-soft file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-accent"
+              />
+            </label>
             {error && (
               <p role="alert" className="mt-2 text-sm text-red-700">
                 {error}
@@ -111,13 +148,14 @@ export default function FeedbackWidget() {
             )}
             <button
               type="submit"
-              disabled={busy || text.trim().length < 3}
+              disabled={busy || !canSend}
               className="mt-2 w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-accent-strong disabled:opacity-60"
             >
               {busy ? "Po dërgohet…" : "Dërgo kërkesën"}
             </button>
             <p className="mt-2 text-xs text-muted">
-              Shkruani një ndryshim për kërkesë. Faqja ku jeni ruhet vetë.
+              Shkruani një ndryshim për kërkesë. Faqja ku jeni ruhet vetë. PDF: deri në 5 skedarë,
+              25 MB secili.
             </p>
           </form>
           <ul className="flex-1 space-y-3 overflow-y-auto p-4">
@@ -131,6 +169,13 @@ export default function FeedbackWidget() {
                   <span className="truncate text-xs text-muted">{i.page}</span>
                 </div>
                 <p className="mt-2 whitespace-pre-wrap leading-relaxed">{i.text}</p>
+                {i.files && i.files.length > 0 && (
+                  <ul className="mt-2 space-y-0.5 text-xs text-muted">
+                    {i.files.map((f) => (
+                      <li key={f}>📎 {f}</li>
+                    ))}
+                  </ul>
+                )}
                 {i.reply && (
                   <p className="mt-2 whitespace-pre-wrap rounded-lg bg-accent-soft p-2 leading-relaxed">
                     {i.reply}
