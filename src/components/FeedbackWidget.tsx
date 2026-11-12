@@ -67,7 +67,8 @@ export default function FeedbackWidget() {
     try {
       const body = new FormData();
       body.set("text", text);
-      body.set("page", window.location.pathname);
+      // Linku i raportit përmban raportin e enkriptuar; te kërkesa ruhet vetëm lloji i faqes.
+      body.set("page", window.location.pathname.replace(/^\/report\/.*/, "/report/…"));
       for (const f of files) body.append("files", f);
       const res = await fetch("/api/feedback", { method: "POST", body });
       const data = (await res.json()) as { ok?: boolean; error?: string };
