@@ -179,7 +179,7 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
       <section className="rounded-2xl border border-border bg-surface p-5 text-xs leading-relaxed text-muted">
         <p>
           <strong className="text-foreground">Ky raport nuk është diagnozë.</strong> {test.code} është
-          një instrument vetëvlerësues (screening) që tregon praninë dhe intensitetin e simptomave,
+          një instrument orientues (screening instrument) që tregon praninë dhe intensitetin e simptomave,
           jo një vlerësim klinik. Vetëm një profesionist i shëndetit mendor mund të bëjë diagnozë
           dhe plan trajtimi.
         </p>

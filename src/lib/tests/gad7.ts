@@ -91,14 +91,14 @@ export const gad7: TestDefinition = {
     {
       heading: "Për çka shërben",
       paragraphs: [
-        "Përdoret gjerësisht në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim, si instrument depistimi (screening) dhe për të ndjekur ndryshimin e simptomave me kalimin e kohës, për shembull gjatë një trajtimi.",
+        "Përdoret gjerësisht në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim, si instrument orientues (screening instrument) dhe për të ndjekur ndryshimin e simptomave me kalimin e kohës, për shembull gjatë një trajtimi.",
         "Ndonëse është ndërtuar për ankthin e përgjithësuar, studimet tregojnë se është i ndjeshëm edhe ndaj çrregullimeve të tjera të ankthit, si çrregullimi i panikut, ankthi social dhe çrregullimi i stresit post-traumatik.",
       ],
     },
     {
       heading: "Kufizimet",
       paragraphs: [
-        "GAD-7 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk merr parasysh shkaqet e tyre, kohëzgjatjen më të gjatë apo gjendje të tjera shëndetësore. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
+        "GAD-7 është instrument orientues (screening instrument), jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk merr parasysh shkaqet e tyre, kohëzgjatjen më të gjatë apo gjendje të tjera shëndetësore. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
       ],
     },
     {

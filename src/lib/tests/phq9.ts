@@ -115,13 +115,13 @@ export const phq9: TestDefinition = {
     {
       heading: "Për çka shërben",
       paragraphs: [
-        "Përdoret për depistimin (screening) e depresionit, për të matur ashpërsinë e simptomave dhe për të ndjekur ndryshimin e tyre me kalimin e kohës, për shembull përgjigjen ndaj trajtimit. Është një nga instrumentet më të përdorura në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim.",
+        "Përdoret si instrument orientues (screening instrument) për depresionin, për të matur ashpërsinë e simptomave dhe për të ndjekur ndryshimin e tyre me kalimin e kohës, për shembull përgjigjen ndaj trajtimit. Është një nga instrumentet më të përdorura në kujdesin parësor shëndetësor, në praktikën klinike dhe në hulumtim.",
       ],
     },
     {
       heading: "Kufizimet",
       paragraphs: [
-        "PHQ-9 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk dallon shkaqet e tyre, si humbja e një të afërmi, gjendje të tjera shëndetësore ose efektet e barnave. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
+        "PHQ-9 është instrument orientues (screening instrument), jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk dallon shkaqet e tyre, si humbja e një të afërmi, gjendje të tjera shëndetësore ose efektet e barnave. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",
       ],
     },
     {
