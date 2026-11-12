@@ -11,9 +11,9 @@ import type { SeverityBand, TestDefinition } from "./types";
  * Formulimi i pyetjeve, shkalla e përgjigjeve dhe pikëzimi ndjekin materialin që dërgoi
  * psikologia (kërkesa FDTFMxn9, 12.11.2026): formulari DASS-21 me tabelën "DASS 21 SCORE".
  * Pikëzimi sipas atij materiali: 7 pyetje për nënshkallë, shuma e thjeshtë (0–21, PA u
- * shumëzuar me 2) dhe pragjet e tabelës së DASS-21. Kjo është e njëjtë me manualin (shuma × 2
- * ndaj pragjeve të DASS-42), me një përjashtim: te ankthi, shuma 5 këtu del "i lehtë", ndërsa
- * me × 2 (=10) manuali e vendos te "i moderuar". Zbatohet tabela e materialit.
+ * shumëzuar me 2) dhe pragjet e DASS-21. Te ankthi tabela e materialit e vinte shumën 5 te
+ * "i lehtë"; psikologia e korrigjoi (kërkesa BzVvms02, 12.11.2026) sipas manualit: 4 = i lehtë,
+ * 5–7 = i moderuar. Kështu të tri shkallët përputhen me manualin (shuma × 2 ndaj pragjeve të DASS-42).
  *
  * Përkthimi në shqip është bërë nga anglishtja; duhet rishikuar nga psikologu.
  * DASS nuk ka pyetje për vetëlëndim; mesazhi i sigurisë shfaqet te niveli më i rëndë.
@@ -79,7 +79,7 @@ export const dass21: TestDefinition = {
   title: "Depresioni, ankthi dhe stresi (DASS-21)",
   tagline: "Tri matje në një test: depresioni, ankthi dhe stresi gjatë javës së fundit.",
   description:
-    "DASS-21 mat veçmas tri gjendje emocionale: depresionin, ankthin dhe stresin. Përbëhet nga 21 pohime të shkurtra dhe zgjat rreth 5 minuta. Raporti jep një rezultat për secilën shkallë.",
+    "DASS-21 (Lovibond & Lovibond, 1995) mat veçmas tri gjendje emocionale: depresionin, ankthin dhe stresin. Përbëhet nga 21 pohime të shkurtra dhe zgjat rreth 5 minuta. Raporti jep një rezultat për secilën shkallë.",
   instruction:
     "Lexoni secilin pohim dhe zgjidhni numrin 0, 1, 2 ose 3 që tregon sa ka vlejtur pohimi për ju gjatë javës së fundit. Mos kaloni shumë kohë në asnjë pohim.",
   timeframe: "java e fundit",
@@ -149,7 +149,7 @@ export const dass21: TestDefinition = {
       id: "ankthi",
       label: "Ankthi",
       questionIds: ["q2", "q4", "q7", "q9", "q15", "q19", "q20"],
-      bands: bands("ankthin", [3, 5, 7, 9]),
+      bands: bands("ankthin", [3, 4, 7, 9]),
     },
     {
       id: "stresi",
@@ -159,12 +159,12 @@ export const dass21: TestDefinition = {
     },
   ],
   interpretationNote: [
-    "DASS është matje sasiore e shqetësimit përgjatë tri boshteve: depresionit, ankthit dhe stresit. Nuk është matje kategorike e diagnozave klinike. Shkalla e ankthit mat kryesisht simptomat e zgjimit fiziologjik, ndërsa shkalla e stresit simptomat më kognitive dhe subjektive.",
+    "Pikëzimi dhe nivelet e ashpërsisë janë sipas Lovibond & Lovibond (1995). DASS është matje sasiore e shqetësimit përgjatë tri boshteve: depresionit, ankthit dhe stresit. Nuk është matje kategorike e diagnozave klinike. Shkalla e ankthit mat kryesisht simptomat e zgjimit fiziologjik, ndërsa shkalla e stresit simptomat më kognitive dhe subjektive.",
     "Gjendjet emocionale si depresioni dhe ankthi janë dimensionale: ato ndryshojnë përgjatë një vazhdimësie të ashpërsisë. Për këtë arsye, çdo prag i vetëm për të përcaktuar ashpërsinë klinike është domosdoshmërisht arbitrar.",
     "Emërtimet e niveleve përshkruajnë ku bie rezultati në raport me popullatën. «I lehtë», për shembull, do të thotë se personi është mbi mesataren e popullatës, por ka gjasa të jetë ende shumë nën ashpërsinë tipike të dikujt që kërkon ndihmë; nuk do të thotë nivel i lehtë i një çrregullimi.",
     "Rezultatet e DASS nuk përcaktojnë vetë ndërhyrjen e duhur. Ato duhen përdorur së bashku me të gjithë informacionin klinik, nga një profesionist i shëndetit mendor.",
   ],
   source:
-    "Lovibond SH, Lovibond PF. Manual for the Depression Anxiety Stress Scales. Bot. 2. Sydney: Psychology Foundation; 1995.",
+    "Lovibond, S. H., & Lovibond, P. F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). Sydney: Psychology Foundation.",
   license: "Në domenin publik; përdoret pa leje.",
 };
