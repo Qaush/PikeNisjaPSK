@@ -94,7 +94,7 @@ export const brs: TestDefinition = {
     {
       heading: "Për çka shërben",
       paragraphs: [
-        "Përdoret në hulumtim dhe në praktikë për të vlerësuar sa lehtë një person e merr veten pas ngjarjeve stresuese, si dhe për të ndjekur ndryshimin e kësaj aftësie me kalimin e kohës. Nuk mat simptoma të një çrregullimi; rezultati i ulët nuk është shenjë sëmundjeje.",
+        "Përdoret në hulumtim dhe në praktikë për të vlerësuar sa lehtë një person e merr veten pas ngjarjeve stresuese, si dhe për të ndjekur ndryshimin e kësaj aftësie me kalimin e kohës. Shkalla nuk vlerëson simptoma të ndonjë çrregullimi: një rezultat i ulët tregon vetëm se rimëkëmbja pas stresit kërkon më shumë kohë dhe nuk nënkupton praninë e një çrregullimi.",
       ],
     },
     {
