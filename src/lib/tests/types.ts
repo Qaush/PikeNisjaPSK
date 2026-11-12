@@ -9,6 +9,8 @@
 export type AnswerOption = {
   value: number;
   label: string;
+  /** Emërtim i shkurtër për listën e përgjigjeve në raport, kur `label` është i gjatë. */
+  short?: string;
 };
 
 export type Question = {
@@ -74,6 +76,8 @@ export type TestDefinition = {
    * është ai i nënshkallës më të rëndë; `bands` i testit nuk përdoret.
    */
   subscales?: Subscale[];
+  /** Shënim për interpretimin, sipas manualit të instrumentit; shfaqet në raport (paragrafë). */
+  interpretationNote?: string[];
   /** Burimi/autorët e instrumentit origjinal, për transparencë në raport. */
   source: string;
   /** Statusi i licencës: a lejohet përdorimi pa pagesë. */

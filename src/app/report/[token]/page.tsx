@@ -141,6 +141,17 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         </section>
       )}
 
+      {test.interpretationNote && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-lg font-semibold">Si lexohen këto nivele</h2>
+          {test.interpretationNote.map((p) => (
+            <p key={p} className="text-sm leading-relaxed text-muted">
+              {p}
+            </p>
+          ))}
+        </section>
+      )}
+
       <SessionRequest token={token} />
 
       <section className="flex flex-col gap-3">
@@ -148,7 +159,8 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
         <ol className="divide-y divide-border rounded-2xl border border-border bg-surface">
           {test.questions.map((q, i) => {
             const v = answers[q.id];
-            const label = test.options.find((o) => o.value === v)?.label ?? "–";
+            const option = test.options.find((o) => o.value === v);
+            const label = option?.short ?? option?.label ?? "–";
             return (
               <li key={q.id} className="flex items-start justify-between gap-4 p-4 text-sm">
                 <span className="leading-relaxed">
