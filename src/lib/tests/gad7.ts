@@ -96,13 +96,6 @@ export const gad7: TestDefinition = {
       ],
     },
     {
-      heading: "Si pikëzohet dhe si lexohet rezultati",
-      paragraphs: [
-        "Për secilin pohim tregoni sa shpesh ju ka shqetësuar gjatë dy javëve të fundit, nga «aspak» (0) deri te «pothuajse çdo ditë» (3). Pikët mblidhen dhe rezultati total shkon nga 0 deri në 21.",
-        "Rezultati 0–4 tregon ankth minimal, 5–9 të lehtë, 10–14 të moderuar dhe 15–21 të rëndë. Në studimin origjinal, rezultati 10 e më shumë është pragu ku rekomandohet vlerësim i mëtejshëm klinik.",
-      ],
-    },
-    {
       heading: "Kufizimet",
       paragraphs: [
         "GAD-7 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk merr parasysh shkaqet e tyre, kohëzgjatjen më të gjatë apo gjendje të tjera shëndetësore. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",

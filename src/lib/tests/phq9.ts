@@ -119,14 +119,6 @@ export const phq9: TestDefinition = {
       ],
     },
     {
-      heading: "Si pikëzohet dhe si lexohet rezultati",
-      paragraphs: [
-        "Për secilin pohim tregoni sa shpesh ju ka shqetësuar gjatë dy javëve të fundit, nga «aspak» (0) deri te «pothuajse çdo ditë» (3). Pikët mblidhen dhe rezultati total shkon nga 0 deri në 27.",
-        "Rezultati 0–4 tregon simptoma minimale, 5–9 të lehta, 10–14 të moderuara, 15–19 mesatarisht të rënda dhe 20–27 të rënda. Në studimin origjinal, rezultati 10 e më shumë është pragu ku rekomandohet vlerësim i mëtejshëm klinik.",
-        "Pohimi i nëntë pyet për mendime për vdekjen ose vetëlëndimin. Çdo përgjigje tjetër përveç «aspak» në këtë pohim kërkon vëmendje të veçantë, pavarësisht rezultatit total, dhe në raport shoqërohet me informacion për ndihmë të menjëhershme.",
-      ],
-    },
-    {
       heading: "Kufizimet",
       paragraphs: [
         "PHQ-9 është instrument depistimi, jo instrument diagnostikues. Ai mat simptomat që keni raportuar për dy javët e fundit dhe nuk dallon shkaqet e tyre, si humbja e një të afërmi, gjendje të tjera shëndetësore ose efektet e barnave. Diagnoza vendoset vetëm nga një psikolog ose psikiatër i licencuar, pas një vlerësimi të plotë klinik.",

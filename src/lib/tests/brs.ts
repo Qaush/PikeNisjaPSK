@@ -98,13 +98,6 @@ export const brs: TestDefinition = {
       ],
     },
     {
-      heading: "Si pikëzohet dhe si lexohet rezultati",
-      paragraphs: [
-        "Për secilin pohim tregoni sa pajtoheni, nga «nuk pajtohem aspak» (1) deri te «pajtohem plotësisht» (5). Tri pohime janë formuluar pozitivisht dhe tri negativisht; pohimet negative pikëzohen në të kundërt. Rezultati është mesatarja e gjashtë pohimeve dhe shkon nga 1 deri në 5.",
-        "Sipas Smith dhe bashkëpunëtorëve (2013), mesatarja 1,00–2,99 tregon reziliencë të ulët, 3,00–4,30 reziliencë normale dhe 4,31–5,00 reziliencë të lartë. Këto intervale janë përshkruese.",
-      ],
-    },
-    {
       heading: "Kufizimet",
       paragraphs: [
         "BRS është një matje e shkurtër e bazuar në vetëvlerësim dhe pasqyron mënyrën si e shihni veten në këtë moment. Rezultati nuk është diagnozë dhe nuk parashikon si do të reagoni në çdo situatë të vështirë.",
