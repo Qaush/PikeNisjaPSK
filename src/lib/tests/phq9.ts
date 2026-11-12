@@ -81,7 +81,7 @@ export const phq9: TestDefinition = {
       summary:
         "Përgjigjet tuaja tregojnë simptoma të moderuara depresioni, që ka gjasa të ndikojnë në funksionimin tuaj të përditshëm.",
       recommendation:
-        "Në këtë nivel rekomandohet vlerësim nga një psikolog ose mjek. Depresioni i moderuar u përgjigjet mirë terapisë, dhe sa më herët të kërkohet ndihma, aq më shpejt vjen përmirësimi.",
+        "Në këtë nivel rekomandohet vlerësim nga një psikolog. Depresioni i moderuar u përgjigjet mirë psikoterapisë, dhe sa më herët të kërkohet ndihma, aq më shpejt vjen përmirësimi.",
     },
     {
       min: 15,
@@ -91,7 +91,7 @@ export const phq9: TestDefinition = {
       summary:
         "Përgjigjet tuaja tregojnë simptoma mesatarisht të rënda depresioni, që zakonisht ndikojnë ndjeshëm në jetën e përditshme.",
       recommendation:
-        "Ju rekomandojmë të kontaktoni së shpejti një psikolog ose mjek për vlerësim dhe plan trajtimi. Mos e shtyni; ky nivel trajtohet, por ka nevojë për mbështetje profesionale.",
+        "Ju rekomandojmë të kontaktoni së shpejti një psikolog për vlerësim psikologjik dhe psikoterapi, dhe një psikiatër për të vlerësuar nëse nevojitet edhe trajtim me barna. Mos e shtyni; ky nivel trajtohet, por ka nevojë për mbështetje profesionale.",
     },
     {
       min: 20,
@@ -101,7 +101,7 @@ export const phq9: TestDefinition = {
       summary:
         "Përgjigjet tuaja tregojnë simptoma të rënda depresioni.",
       recommendation:
-        "Ju lutemi kontaktoni sa më shpejt një profesionist të shëndetit mendor ose mjekun tuaj. Nëse ndiheni në rrezik, përdorni numrat e urgjencës më poshtë. Nuk jeni vetëm, dhe ndihma ekziston.",
+        "Ju lutemi kontaktoni sa më shpejt një psikiatër ose mjekun tuaj për vlerësim mjekësor, dhe një psikolog për mbështetje psikoterapeutike. Nëse ndiheni në rrezik, përdorni numrat e urgjencës më poshtë. Nuk jeni vetëm, dhe ndihma ekziston.",
     },
   ],
   about: [

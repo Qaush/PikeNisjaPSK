@@ -56,7 +56,7 @@ function bands(what: string, cut: Cutoffs): SeverityBand[] {
       tone: "moderate",
       summary: `Rezultati juaj tregon nivel të moderuar për ${what}, dukshëm mbi mesataren e popullatës.`,
       recommendation:
-        "Rekomandohet një bisedë me psikolog ose psikiatër për një vlerësim më të plotë.",
+        "Rekomandohet një vlerësim psikologjik nga një psikolog.",
     },
     {
       min: moderate + 1,
@@ -65,7 +65,7 @@ function bands(what: string, cut: Cutoffs): SeverityBand[] {
       tone: "high",
       summary: `Rezultati juaj tregon nivel të rëndë për ${what}.`,
       recommendation:
-        "Ju rekomandojmë të kontaktoni sa më shpejt një psikolog ose psikiatër për një vlerësim të plotë klinik.",
+        "Ju rekomandojmë të kontaktoni sa më shpejt një psikolog për vlerësim psikologjik dhe psikoterapi, dhe një psikiatër për të vlerësuar nëse nevojitet edhe trajtim me barna.",
     },
     {
       min: severe + 1,
@@ -74,7 +74,7 @@ function bands(what: string, cut: Cutoffs): SeverityBand[] {
       tone: "severe",
       summary: `Rezultati juaj tregon nivel jashtëzakonisht të rëndë për ${what}.`,
       recommendation:
-        "Ju rekomandojmë fuqimisht të kërkoni ndihmë profesionale pa vonesë. Një psikolog ose psikiatër mund t'ju ndihmojë.",
+        "Ju rekomandojmë fuqimisht të kërkoni ndihmë profesionale pa vonesë: një psikiatër për vlerësim mjekësor dhe një psikolog për mbështetje psikoterapeutike.",
     },
   ];
 }

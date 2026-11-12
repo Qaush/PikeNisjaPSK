@@ -1,4 +1,5 @@
 import { config } from "./config";
+import { professionsNote } from "./professions";
 import { helplines, safetyMessage } from "./safety";
 import {
   formatScore,
@@ -215,6 +216,8 @@ export function buildReportDocument(opts: {
 
   <h2 style="${H2}">Interpretimi</h2>
   ${interpretation}
+  <p style="margin:14px 0 4px;font-size:13px;font-weight:600">Psikologu dhe psikiatri</p>
+  ${professionsNote.map((p) => `<p style="margin:0 0 4px;font-size:13px;line-height:1.55">${esc(p)}</p>`).join("")}
 
   <h2 style="${H2}">Informacion për pikëzimin dhe interpretimin</h2>
   ${notes}

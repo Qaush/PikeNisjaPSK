@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import SessionRequest from "@/components/SessionRequest";
 import { config } from "@/lib/config";
 import { openReport } from "@/lib/orders";
+import { professionsNote } from "@/lib/professions";
 import { helplines, safetyMessage } from "@/lib/safety";
 import { formatScore } from "@/lib/tests";
 
@@ -154,6 +155,15 @@ async function Report({ params }: { params: PageProps<"/report/[token]">["params
           <p className="leading-relaxed">{result.band.recommendation}</p>
         </section>
       )}
+
+      <section className="flex flex-col gap-2">
+        <h2 className="text-lg font-semibold">Psikologu dhe psikiatri</h2>
+        {professionsNote.map((p) => (
+          <p key={p} className="text-sm leading-relaxed text-muted">
+            {p}
+          </p>
+        ))}
+      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-semibold">Pikëzimi dhe shkallët interpretuese</h2>

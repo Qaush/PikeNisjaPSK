@@ -67,7 +67,7 @@ export const gad7: TestDefinition = {
       summary:
         "Përgjigjet tuaja tregojnë simptoma të moderuara ankthi, që ka gjasa të ndikojnë në punën, marrëdhëniet ose gjumin tuaj.",
       recommendation:
-        "Në këtë nivel rekomandohet një vlerësim nga një psikolog ose mjek. Ankthi i moderuar trajtohet mirë me terapi (p.sh. CBT) dhe nuk ka pse të pritet të përkeqësohet.",
+        "Në këtë nivel rekomandohet një vlerësim nga një psikolog. Ankthi i moderuar trajtohet mirë me psikoterapi (p.sh. terapi kognitive-bihejviorale) dhe nuk ka pse të pritet të përkeqësohet.",
     },
     {
       min: 15,
@@ -77,7 +77,7 @@ export const gad7: TestDefinition = {
       summary:
         "Përgjigjet tuaja tregojnë simptoma të rënda ankthi. Ky nivel zakonisht ndikon ndjeshëm në jetën e përditshme.",
       recommendation:
-        "Ju rekomandojmë fuqimisht të kontaktoni sa më shpejt një psikolog ose mjek për një vlerësim të plotë. Ankthi i rëndë është i trajtueshëm, dhe ndihma profesionale bën diferencë të madhe.",
+        "Ju rekomandojmë fuqimisht të kontaktoni sa më shpejt një psikolog për vlerësim psikologjik dhe psikoterapi, dhe një psikiatër për të vlerësuar nëse nevojitet edhe trajtim me barna. Ankthi i rëndë është i trajtueshëm, dhe ndihma profesionale bën diferencë të madhe.",
     },
   ],
   about: [
